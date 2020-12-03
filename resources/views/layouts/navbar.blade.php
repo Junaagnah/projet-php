@@ -6,7 +6,7 @@
                 <!-- Logo
                 ============================================= -->
                 <div id="logo" class="mr-lg-0">
-                    <a href="index.html" class="standard-logo" data-dark-logo="demos/store/images/logo-dark.png"><img src="{{url('images/logo.png')}}" alt="Canvas Logo"></a>
+                    <a href="{{ url('/') }}" class="standard-logo" data-dark-logo="demos/store/images/logo-dark.png"><img src="{{url('images/logo.png')}}" alt="Canvas Logo"></a>
                 </div><!-- #logo end -->
 
                 <div class="header-misc">
@@ -14,7 +14,8 @@
                     <!-- Top Login
                     ============================================= -->
                     <div id="top-account" class="px-4">
-                        <a href="#modal-register" data-lightbox="inline">Sign up/Login</a>
+                        <a class="pr-4" href="{{ url('register') }}" data-lightbox="inline">S'inscrire</a>
+                        <a href="{{ url('login') }}" data-lightbox="inline">Se connecter</a>
                     </div><!-- #top-search end -->
                 </div>
 
