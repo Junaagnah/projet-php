@@ -13,4 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Controller@default');
+// Index
+Route::get('/', 'IndexController@default');
+
+// Login
+Route::get('/login', 'AuthController@login');
+
+// Register
+Route::get('/register', 'AuthController@Register');

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Lumen\Http\Request;
+use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
-class Controller extends BaseController
+class IndexController extends BaseController
 {
-    public function default()
+    public function default(): View
     {
         return view('index');
     }

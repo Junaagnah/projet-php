@@ -45,12 +45,6 @@
     @stop--}}
 
 </div>
-
-
-<script src="{{ url('theme/js/jquery.js') }}" type="application/javascript"></script>
-<script src="{{ url('theme/js/plugins.min.js') }}" type="application/javascript"></script>
-<script src="{{ url('theme/js/functions.js') }}" type="application/javascript"></script>
-
 </div>
 </body>
 </html>
