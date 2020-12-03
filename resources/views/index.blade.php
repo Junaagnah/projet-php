@@ -7,7 +7,7 @@
         <div class="container">
             <div class="heading-block topmargin-lg center">
                 <h2>Bienvenue sur MoviesPlaceholder</h2>
-                <span class="mx-auto">Sur notre plateforme vous pouvez consulter et redigez des avis sur vos films favoris !</span>
+                <span class="mx-auto">Sur notre plateforme vous pouvez consulter et rediger des avis sur vos films favoris !</span>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
         <div class="container">
             <div class="heading-block topmargin-lg center">
                 <h2>Dernières sorties</h2>
-                <span class="mx-auto">Donner votre avis sur les films sortis récemment.</span>
+                <span class="mx-auto">Donnez votre avis sur les films sortis récemment.</span>
             </div>
             <div class="row">
                 <div class="col-4">
