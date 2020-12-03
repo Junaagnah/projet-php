@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ url('theme/css/theme/bootstrap.css') }}?v0.9">
     <link rel="stylesheet" href="{{ url('theme/css/theme/magnific-popup.css') }}?v0.9">
 
-    <link rel="stylesheet" href="{{ url('theme/css/main.css') }}?v0.6">
     <link rel="stylesheet" href="{{ url('theme/css/design.css') }}?v0.9">
 
 
@@ -48,9 +47,9 @@
 </div>
 
 
-<script src="{{ url('js/jquery.js') }}" type="application/javascript"></script>
-<script src="{{ url('js/plugins.min.js') }}" type="application/javascript"></script>
-<script src="{{ url('js/functions.js') }}" type="application/javascript"></script>
+<script src="{{ url('theme/js/jquery.js') }}" type="application/javascript"></script>
+<script src="{{ url('theme/js/plugins.min.js') }}" type="application/javascript"></script>
+<script src="{{ url('theme/js/functions.js') }}" type="application/javascript"></script>
 
 </div>
 </body>
