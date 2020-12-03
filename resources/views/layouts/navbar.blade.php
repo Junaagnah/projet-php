@@ -32,8 +32,6 @@
                         <li class="menu-item"><a class="menu-link" href="#"><div>Products</div></a></li>
                         <li class="menu-item"><a class="menu-link" href="#"><div>info</div></a></li>
                         <li class="menu-item"><a class="menu-link" href="#"><div>Movies</div></a></li>
-                        <li class="menu-item"><a class="menu-link" href="#"><div>Women</div></a></li>
-
                     </ul>
 
                 </nav><!-- #primary-menu end -->
