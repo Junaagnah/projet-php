@@ -21,3 +21,5 @@ Route::get('/login', 'AuthController@login');
 
 // Register
 Route::get('/register', 'AuthController@Register');
+
+Route::post('/register-action', 'AuthController@RegisterAction');
