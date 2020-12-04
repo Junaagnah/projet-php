@@ -12,7 +12,7 @@ class IndexController extends BaseController
 {
     use MoviesTrait;
 
-    public function default(Request $request): View | RedirectResponse
+    public function default(Request $request)
     {
         $pageNumber = intval($request->input('pageNumber'));
         if ($pageNumber <= 0) {
