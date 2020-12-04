@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAndReview extends Migration
+class CreateUsersAndReviewsFix extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateUserAndReview extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('email');
             $table->string('password');
             $table->string('username');
-            $table->string('profilePicturePath');
-            $table->string('userRole');
+            $table->string('profilePicturePath')->nullable(true);
+            $table->string('userRole')->default('ROLE_USER');
         });
 
         Schema::create('review', function (Blueprint $table) {
@@ -33,7 +33,7 @@ class CreateUserAndReview extends Migration
         });
 
         Schema::table('review', function (Blueprint $table) {
-            $table->foreign('FK_userId')->references('id')->on('user');
+            $table->foreign('FK_userId')->references('id')->on('users');
         });
     }
 
@@ -44,7 +44,7 @@ class CreateUserAndReview extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user');
-        Schema::dropIfExists('review');
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('reviews');
     }
 }
