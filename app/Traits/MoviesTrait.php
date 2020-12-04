@@ -18,8 +18,7 @@ trait MoviesTrait {
 
     public function searchMovie($stringToSearch, $pageNumber): array
     {
-        $query = 'https://api.themoviedb.org/3/search/movie?api_key='.MOVIE_DB_API_KEY.'&language=fr&query='.$stringToSearch.'&page='.$pageNumber;
-        $result = json_decode(file_get_contents($query), true);
+        $result = json_decode(file_get_contents('https://api.themoviedb.org/3/search/movie?api_key='.MOVIE_DB_API_KEY.'&language=fr&query='.urlencode($stringToSearch).'&page='.$pageNumber), true);
         $result['results'] = $this->parseGenres($result['results']);
         return $result;
     }
