@@ -2,22 +2,25 @@
 
 namespace App\Http\Middleware;
 
+use App\Traits\SessionTrait;
+use App\User;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Laravel\Lumen\Http\Request;
 
 class Authenticate
 {
     /**
      * The authentication guard factory instance.
      *
-     * @var \Illuminate\Contracts\Auth\Factory
+     * @var Auth
      */
     protected $auth;
 
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
+     * @param Auth $auth
      * @return void
      */
     public function __construct(Auth $auth)
@@ -26,17 +29,26 @@ class Authenticate
     }
 
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+    public function handle(Request $request, Closure $next) {
+        // Checking if user is connected
+        $encryptedUsername = $request->cookie(COOKIE_SESSION_KEY);
+
+        if (empty($encryptedUsername))
+            return $next($request);
+
+        $username = SessionTrait::getSessionCookieValue($encryptedUsername);
+
+        if (!empty($username)) {
+            $user = User::getUserByUsername($username);
+            if (!empty($user)) {
+                // If the user exists, we set his account in the session global variable and reset a new cookie
+                $_SESSION['user'] = User::getUserByUsername($username);
+                SessionTrait::setSessionCookie($username);
+            }
         }
 
         return $next($request);

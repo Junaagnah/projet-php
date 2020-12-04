@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\SessionTrait;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -34,8 +36,7 @@ class AuthController extends BaseController
     {
         $input = $request->all();
 
-        $hasher = app()->make('hash');
-        $password = $hasher->make($input['password']);
+        $password = hash('sha256', $input['password']);
 
         try {
             $this->validate($request, [
@@ -54,5 +55,45 @@ class AuthController extends BaseController
 
         $user->save();
         return view('login');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Exception|ValidationException|View|RedirectResponse
+     */
+    public function loginAction(Request $request)
+    {
+        // Hashing password
+        $hashedPassword = hash('sha256', $request->get('password'));
+
+        // Checking if fields are correct
+        try {
+            $this->validate($request, [
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ]);
+        } catch (ValidationException $errors) {
+            return view('errors', ['error' => $errors->getResponse()->getContent()]);
+        }
+
+        // Trying to authenticate user
+        $user = User::getUserByEmail($request->get('email'));
+        if (!empty($user) && $user->getAuthPassword() == $hashedPassword) {
+            // Setting cookies and redirect to home page
+            SessionTrait::setSessionCookie($user->getAttributeValue('username'));
+            return redirect('/');
+        }
+        else {
+            return view('errors', ['error' => 'Adresse e-mail ou mot de passe incorrect.']);
+        }
+    }
+
+    /**
+     * @return Redirect
+     */
+    public function disconnect(): RedirectResponse
+    {
+        SessionTrait::unsetSessionCookie();
+        return redirect('/');
     }
 }
