@@ -16,9 +16,12 @@ trait MoviesTrait {
         return json_decode(file_get_contents('https://api.themoviedb.org/3/movie/'.$id.'?api_key='.MOVIE_DB_API_KEY.'&language=fr'), true);
     }
 
-    public function searchMovie($searchContent): array
+    public function searchMovie($stringToSearch, $pageNumber): array
     {
-        return json_decode(file_get_contents('https://api.themoviedb.org/3/search/movie?api_key='.MOVIE_DB_API_KEY.'&language=fr&query='.$searchContent.'&page=1'), true);
+        $query = 'https://api.themoviedb.org/3/search/movie?api_key='.MOVIE_DB_API_KEY.'&language=fr&query='.$stringToSearch.'&page='.$pageNumber;
+        $result = json_decode(file_get_contents($query), true);
+        $result['results'] = $this->parseGenres($result['results']);
+        return $result;
     }
 
     private function parseGenres(array $moviesArray) {
