@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Index
 Route::get('/', 'IndexController@default');
 
+// Search
+Route::get('/search', 'IndexController@search');
+
 // Login
 Route::get('/login', 'AuthController@login');
 
