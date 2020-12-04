@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\SessionTrait;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -30,7 +31,7 @@ class AuthController extends BaseController
 
     /**
      * @param Request $request
-     * @return \Exception|ValidationException|View
+     * @return Exception|ValidationException|View
      */
     public function registerAction(Request $request)
     {
@@ -59,7 +60,7 @@ class AuthController extends BaseController
 
     /**
      * @param Request $request
-     * @return \Exception|ValidationException|View|RedirectResponse
+     * @return Exception|ValidationException|View|RedirectResponse
      */
     public function loginAction(Request $request)
     {
@@ -78,7 +79,7 @@ class AuthController extends BaseController
 
         // Trying to authenticate user
         $user = User::getUserByEmail($request->get('email'));
-        if (!empty($user) && $user->getAuthPassword() == $hashedPassword) {
+        if (!empty($user) && $user->getAuthPassword() === $hashedPassword) {
             // Setting cookies and redirect to home page
             SessionTrait::setSessionCookie($user->getAttributeValue('username'));
             return redirect('/');
@@ -89,7 +90,7 @@ class AuthController extends BaseController
     }
 
     /**
-     * @return Redirect
+     * @return RedirectResponse
      */
     public function disconnect(): RedirectResponse
     {
