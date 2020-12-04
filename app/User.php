@@ -83,7 +83,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param string $email
      * @return User|null
      */
-    public static function getUserByEmail(string $email) {
+    public static function getOneUserByEmail(string $email) {
         $user = DB::table('users')->where('email', $email)->first();
 
         if (!empty($user))
@@ -94,9 +94,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     /**
      * @param string $username
-     * @return array
+     * @return array | null
      */
-    public static function getUserByUsername(string $username) {
-        return get_object_vars(DB::table('users')->where('username', $username)->first());
+    public static function getOneUserByUsername(string $username) {
+        $user = DB::table('users')->where('username', $username)->first();
+
+        if (empty($user))
+            return null;
+
+        return get_object_vars($user);
     }
 }

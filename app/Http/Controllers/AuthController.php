@@ -78,7 +78,7 @@ class AuthController extends BaseController
         }
 
         // Trying to authenticate user
-        $user = User::getUserByEmail($request->get('email'));
+        $user = User::getOneUserByEmail($request->get('email'));
         if (!empty($user) && $user->getAuthPassword() === $hashedPassword) {
             // Setting cookies and redirect to home page
             SessionTrait::setSessionCookie($user->getAttributeValue('username'));

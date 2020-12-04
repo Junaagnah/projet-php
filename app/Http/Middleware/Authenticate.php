@@ -43,10 +43,10 @@ class Authenticate
         $username = SessionTrait::getSessionCookieValue($encryptedUsername);
 
         if (!empty($username)) {
-            $user = User::getUserByUsername($username);
+            $user = User::getOneUserByUsername($username);
             if (!empty($user)) {
                 // If the user exists, we set his account in the session global variable and reset a new cookie
-                $_SESSION['user'] = User::getUserByUsername($username);
+                $_SESSION['user'] = $user;
                 SessionTrait::setSessionCookie($username);
             }
         }
