@@ -19,7 +19,14 @@ Route::get('/', 'IndexController@default');
 // Login
 Route::get('/login', 'AuthController@login');
 
+// LoginAction
+Route::post('/login-action', 'AuthController@LoginAction');
+
 // Register
 Route::get('/register', 'AuthController@Register');
 
+// RegisterAction
 Route::post('/register-action', 'AuthController@RegisterAction');
+
+// DisconnectAction
+Route::get('/disconnect', 'AuthController@Disconnect');

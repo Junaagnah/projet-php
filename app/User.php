@@ -6,6 +6,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Auth\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
@@ -78,5 +79,29 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         self::$guardableColumns = $guardableColumns;
     }
 
+    /**
+     * @param string $email
+     * @return User|null
+     */
+    public static function getOneUserByEmail(string $email) {
+        $user = DB::table('users')->where('email', $email)->first();
 
+        if (!empty($user))
+            return new User(get_object_vars($user));
+
+        return null;
+    }
+
+    /**
+     * @param string $username
+     * @return array | null
+     */
+    public static function getOneUserByUsername(string $username) {
+        $user = DB::table('users')->where('username', $username)->first();
+
+        if (empty($user))
+            return null;
+
+        return get_object_vars($user);
+    }
 }

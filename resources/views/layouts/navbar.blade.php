@@ -10,13 +10,19 @@
                 </div><!-- #logo end -->
 
                 <div class="header-misc">
-
-                    <!-- Top Login
-                    ============================================= -->
-                    <div id="top-account" class="px-4">
-                        <a class="pr-4" href="{{ url('register') }}" data-lightbox="inline">S'inscrire</a>
-                        <a href="{{ url('login') }}" data-lightbox="inline">Se connecter</a>
-                    </div><!-- #top-search end -->
+                    @if (empty($_SESSION['user']))
+                        <!-- Top Login
+                        ============================================= -->
+                        <div id="top-account" class="px-4">
+                            <a class="pr-4" href="{{ url('register') }}" data-lightbox="inline">S'inscrire</a>
+                            <a href="{{ url('login') }}" data-lightbox="inline">Se connecter</a>
+                        </div><!-- #top-search end -->
+                    @else
+                        <div id="top-account" class="px-4">
+                            <a class="pr-4" href="#" data-lightbox="inline">{{ $_SESSION['user']['username'] }}</a>
+                            <a href="{{ url('disconnect') }}" data-lightbox="inline">Se déconnecter</a>
+                        </div>
+                    @endif
                 </div>
 
                 <div id="primary-menu-trigger">
