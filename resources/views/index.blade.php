@@ -128,7 +128,7 @@
                         @endif
                         <div class="badge-container">
                         @foreach ($movie['genre'] as $movieGenre)
-                        <span class="badge badge-<?php echo strtolower($movieGenre) ?>">{{ $movieGenre }}</span>
+                        <span class="badge badge-<?php echo strtolower($movieGenre['genreClassName']) ?>">{{ $movieGenre['genre'] }}</span>
                         @endforeach
                         </div>
                         @if ($movie['overview'] && $movie['overview'] !== '')

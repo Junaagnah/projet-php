@@ -28,7 +28,10 @@ trait MoviesTrait {
         foreach ($moviesArray as &$movie) {
             $movieParsedGenres = array();
             foreach ($movie['genre_ids'] as $genreId) {
-                array_push($movieParsedGenres, $genresArray[array_search($genreId, array_column($genresArray, 'id'))]['name']);
+                $genreAndGenreClassname = array();
+                $genreAndGenreClassname['genre'] = $genresArray[array_search($genreId, array_column($genresArray, 'id'))]['name'];
+                $genreAndGenreClassname['genreClassName'] = str_replace('\'', '', iconv('UTF-8','ASCII//TRANSLIT', $genreAndGenreClassname['genre']));
+                array_push($movieParsedGenres, $genreAndGenreClassname);
             }
             $movie['genre'] = $movieParsedGenres;
         }
