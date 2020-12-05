@@ -49,6 +49,9 @@ class Authenticate
                 $_SESSION['user'] = $user;
                 SessionTrait::setSessionCookie($username);
             }
+            else {
+                SessionTrait::unsetSessionCookie();
+            }
         }
 
         return $next($request);
