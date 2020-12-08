@@ -47,10 +47,10 @@ Route::post('/ban-user', 'AdminController@banUser');
 Route::post('/unban-user', 'AdminController@unbanUser');
 
 //Promote user to moderator
-Route::post('/promote-user', 'AdminController@promoteUserToModerator');
+Route::post('/promote-moderator', 'AdminController@promoteUserToModerator');
 
 //Promote user to Admin
-Route::post('/promote-admin', 'AdminController@demoteUserToAdmin');
+Route::post('/promote-admin', 'AdminController@promoteUserToAdmin');
 
 //Demote user to classic user
 Route::post('/demote-user', 'AdminController@demoteUser');

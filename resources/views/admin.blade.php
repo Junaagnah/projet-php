@@ -22,7 +22,7 @@
                     <div class="col-8">
                         <label class="text-center">Pseudo ou adresse e-mail de l'utilisateur</label>
                         <input
-                            name="query"
+                            name="search"
                             type="text"
                             class="form-control"
                             placeholder="Bilb0_s4cquet"
@@ -84,19 +84,44 @@
 
                 </td>
                 <td>
-                    @if ($user->userRole == 'ROLE_USER')
-                        <form action="/promote-user" method="post">
-                            <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
-                                Passer modérateur
-                            </button>
-                        </form>
-                    @else
-                        <form action="/demote-user" method="post">
-                            <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
-                                Passer Utilisateur
-                            </button>
-                        </form>
-                    @endif
+                    @switch($user->userRole)
+                        @case('ROLE_USER')
+                            <form action="/promote-moderator" method="post">
+                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
+                                    Passer modérateur
+                                </button>
+                            </form>
+                            <form action="/promote-admin" method="post">
+                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
+                                    Passer Administrateur
+                                </button>
+                            </form>
+                            @break
+                        @case('ROLE_MODERATOR')
+                            <form action="/promote-admin" method="post">
+                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
+                                    Passer Administrateur
+                                </button>
+                            </form>
+                            <form action="/demote-user" method="post">
+                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
+                                    Passer Utilisateur
+                                </button>
+                            </form>
+                            @break
+                        @case('ROLE_ADMIN')
+                            <form action="/promote-moderator" method="post">
+                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
+                                    Passer Modérateur
+                                </button>
+                            </form>
+                            <form action="/demote-user" method="post">
+                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
+                                    Passer Utilisateur
+                                </button>
+                            </form>
+                            @break
+                    @endswitch
                 </td>
             </tr>
             @endforeach
