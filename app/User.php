@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'profilePicturePath', 'UserRole', 'password', 'bearer_token'
+        'username', 'email', 'profilePicturePath', 'UserRole', 'password', "isBanned"
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password', 'bearer_token'
+        'password'
     ];
 
     /**

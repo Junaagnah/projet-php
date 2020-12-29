@@ -26,10 +26,31 @@ Route::get('/login', 'AuthController@login');
 Route::post('/login-action', 'AuthController@LoginAction');
 
 // Register
-Route::get('/register', 'AuthController@Register');
+Route::get('/register', 'AuthController@register');
 
-// RegisterAction
-Route::post('/register-action', 'AuthController@RegisterAction');
+// Registration form
+Route::post('/register-action', 'AuthController@registerAction');
 
 // DisconnectAction
 Route::get('/disconnect', 'AuthController@Disconnect');
+
+// Admin Page
+Route::get('/admin', 'AdminController@show');
+
+// Search user form
+Route::post('/search-user', 'AdminController@searchUser');
+
+//Ban user
+Route::post('/ban-user', 'AdminController@banUser');
+
+//Unban user
+Route::post('/unban-user', 'AdminController@unbanUser');
+
+//Promote user to moderator
+Route::post('/promote-moderator', 'AdminController@promoteUserToModerator');
+
+//Promote user to Admin
+Route::post('/promote-admin', 'AdminController@promoteUserToAdmin');
+
+//Demote user to classic user
+Route::post('/demote-user', 'AdminController@demoteUser');

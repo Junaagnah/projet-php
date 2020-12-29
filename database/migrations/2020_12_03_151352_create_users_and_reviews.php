@@ -23,7 +23,7 @@ class CreateUsersAndReviews extends Migration
             $table->string('userRole')->default('ROLE_USER');
         });
 
-        Schema::create('review', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->integer('FK_userId')->unsigned();
@@ -32,7 +32,7 @@ class CreateUsersAndReviews extends Migration
             $table->integer('note');
         });
 
-        Schema::table('review', function (Blueprint $table) {
+        Schema::table('reviews', function (Blueprint $table) {
             $table->foreign('FK_userId')->references('id')->on('users');
         });
     }

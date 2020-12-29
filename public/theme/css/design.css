@@ -141,3 +141,10 @@
     background-color: rgb(102, 45, 13);
   }
 
+.btn-down {
+    margin-top: 30px
+}
+
+.background-red {
+    background-color: #d99797 !important;
+}
