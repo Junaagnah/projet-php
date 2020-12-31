@@ -55,7 +55,9 @@ class AuthController extends BaseController
         $user = New User($input);
 
         $user->save();
-        return view('login');
+
+        // Once the user is registered, we connect him and redirect to index
+        return $this->loginAction($request);
     }
 
     /**
