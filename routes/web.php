@@ -13,44 +13,54 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Routes that don't need any guard
 // Index
 Route::get('/', 'IndexController@default');
 
 // Search
 Route::get('/search', 'IndexController@search');
 
-// Login
-Route::get('/login', 'AuthController@login');
+// Unauthenticated routes group
+Route::group(['middleware' => 'unauthenticated'], function () {
+    // Login
+    Route::get('/login', 'AuthController@login');
 
-// LoginAction
-Route::post('/login-action', 'AuthController@LoginAction');
+    // LoginAction
+    Route::post('/login-action', 'AuthController@LoginAction');
 
-// Register
-Route::get('/register', 'AuthController@register');
+    // Register
+    Route::get('/register', 'AuthController@register');
 
-// Registration form
-Route::post('/register-action', 'AuthController@registerAction');
+    // Registration form
+    Route::post('/register-action', 'AuthController@registerAction');
+});
 
-// DisconnectAction
-Route::get('/disconnect', 'AuthController@Disconnect');
+// Authenticated routes group
+Route::group(['middleware' => 'authenticated'], function () {
+    // DisconnectAction
+    Route::get('/disconnect', 'AuthController@Disconnect');
+});
 
-// Admin Page
-Route::get('/admin', 'AdminController@show');
+// Admin routes group
+Route::group(['middleware' => 'admin'], function () {
+    // Admin Page
+    Route::get('/admin', 'AdminController@show');
 
-// Search user form
-Route::post('/search-user', 'AdminController@searchUser');
+    // Search user form
+    Route::post('/search-user', 'AdminController@searchUser');
 
-//Ban user
-Route::post('/ban-user', 'AdminController@banUser');
+    //Ban user
+    Route::post('/ban-user', 'AdminController@banUser');
 
-//Unban user
-Route::post('/unban-user', 'AdminController@unbanUser');
+    //Unban user
+    Route::post('/unban-user', 'AdminController@unbanUser');
 
-//Promote user to moderator
-Route::post('/promote-moderator', 'AdminController@promoteUserToModerator');
+    //Promote user to moderator
+    Route::post('/promote-moderator', 'AdminController@promoteUserToModerator');
 
-//Promote user to Admin
-Route::post('/promote-admin', 'AdminController@promoteUserToAdmin');
+    //Promote user to Admin
+    Route::post('/promote-admin', 'AdminController@promoteUserToAdmin');
 
-//Demote user to classic user
-Route::post('/demote-user', 'AdminController@demoteUser');
+    //Demote user to classic user
+    Route::post('/demote-user', 'AdminController@demoteUser');
+});

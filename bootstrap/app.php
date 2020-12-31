@@ -74,13 +74,15 @@ $app->configure('app');
 |
 */
 
- $app->middleware([
-     App\Http\Middleware\Authenticate::class
- ]);
+$app->middleware([
+ App\Http\Middleware\Authenticate::class
+]);
 
-//$app->routeMiddleware([
-// 'auth' => App\Http\Middleware\Authenticate::class,
-//]);
+$app->routeMiddleware([
+    'admin' => App\Http\Middleware\AdministrationGuard::class,
+    'authenticated' => App\Http\Middleware\AuthenticatedGuard::class,
+    'unauthenticated' => App\Http\Middleware\UnauthenticatedGuard::class,
+]);
 
 /*
 |--------------------------------------------------------------------------

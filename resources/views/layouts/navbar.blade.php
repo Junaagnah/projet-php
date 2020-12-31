@@ -39,7 +39,10 @@
                         <li class="menu-item"><a class="menu-link" href="#"><div>Products</div></a></li>
                         <li class="menu-item"><a class="menu-link" href="#"><div>info</div></a></li>
                         <li class="menu-item"><a class="menu-link" href="#"><div>Movies</div></a></li>
-                        <li class="menu-item"><a class="menu-link" href="/admin"><div>Administration</div></a></li>
+                        @if(!empty($_SESSION['user']) && $_SESSION['user']['userRole'] === ROLE_ADMIN)
+                            <!-- Only showing if the user is admin -->
+                            <li class="menu-item"><a class="menu-link" href="/admin"><div>Administration</div></a></li>
+                        @endif
                     </ul>
 
                 </nav><!-- #primary-menu end -->
