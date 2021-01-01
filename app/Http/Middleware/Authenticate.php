@@ -45,9 +45,17 @@ class Authenticate
         if (!empty($username)) {
             $user = User::getOneUserByUsername($username);
             if (!empty($user)) {
-                // If the user exists, we set his account in the session global variable and reset a new cookie
-                $_SESSION['user'] = $user;
-                SessionTrait::setSessionCookie($username);
+                // We check if the user is banned
+                if (!$user['isBanned']) {
+                    // If the user exists, we set his account in the session global variable and reset a new cookie
+                    $_SESSION['user'] = $user;
+                    SessionTrait::setSessionCookie($username);
+                }
+                else {
+                    // If the user is banned, we disconnect him and redirect him to the errors page
+                    SessionTrait::unsetSessionCookie();
+                    return view('errors', ['error' => 'Vous avez été banni et vous ne pouvez plus vous connecter.']);
+                }
             }
             else {
                 SessionTrait::unsetSessionCookie();

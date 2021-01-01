@@ -55,7 +55,9 @@ class AuthController extends BaseController
         $user = New User($input);
 
         $user->save();
-        return view('login');
+
+        // Once the user is registered, we connect him and redirect to index
+        return $this->loginAction($request);
     }
 
     /**
@@ -80,9 +82,15 @@ class AuthController extends BaseController
         // Trying to authenticate user
         $user = User::getOneUserByEmail($request->get('email'));
         if (!empty($user) && $user->getAuthPassword() === $hashedPassword) {
-            // Setting cookies and redirect to home page
-            SessionTrait::setSessionCookie($user->getAttributeValue('username'));
-            return redirect('/');
+            // Checking if the user is banned
+            if (!$user->getAttribute('isBanned')) {
+                // Setting cookies and redirect to home page
+                SessionTrait::setSessionCookie($user->getAttributeValue('username'));
+                return redirect('/');
+            }
+            else {
+                return view('errors', ['error' => 'Vous avez été banni et ne pouvez plus vous connecter.']);
+            }
         }
         else {
             return view('errors', ['error' => 'Adresse e-mail ou mot de passe incorrect.']);
