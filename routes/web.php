@@ -39,28 +39,28 @@ Route::group(['middleware' => 'unauthenticated'], function () {
 Route::group(['middleware' => 'authenticated'], function () {
     // DisconnectAction
     Route::get('/disconnect', 'AuthController@Disconnect');
-});
 
-// Admin routes group
-Route::group(['middleware' => 'admin'], function () {
-    // Admin Page
-    Route::get('/admin', 'AdminController@show');
+    // Admin routes group
+    Route::group(['middleware' => 'admin'], function () {
+        // Admin Page
+        Route::get('/admin', 'AdminController@show');
 
-    // Search user form
-    Route::post('/search-user', 'AdminController@searchUser');
+        // Search user form
+        Route::post('/search-user', 'AdminController@searchUser');
 
-    //Ban user
-    Route::post('/ban-user', 'AdminController@banUser');
+        //Ban user
+        Route::post('/ban-user', 'AdminController@banUser');
 
-    //Unban user
-    Route::post('/unban-user', 'AdminController@unbanUser');
+        //Unban user
+        Route::post('/unban-user', 'AdminController@unbanUser');
 
-    //Promote user to moderator
-    Route::post('/promote-moderator', 'AdminController@promoteUserToModerator');
+        //Promote user to moderator
+        Route::post('/promote-moderator', 'AdminController@promoteUserToModerator');
 
-    //Promote user to Admin
-    Route::post('/promote-admin', 'AdminController@promoteUserToAdmin');
+        //Promote user to Admin
+        Route::post('/promote-admin', 'AdminController@promoteUserToAdmin');
 
-    //Demote user to classic user
-    Route::post('/demote-user', 'AdminController@demoteUser');
+        //Demote user to classic user
+        Route::post('/demote-user', 'AdminController@demoteUser');
+    });
 });
