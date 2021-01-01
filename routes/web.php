@@ -20,6 +20,9 @@ Route::get('/', 'IndexController@default');
 // Search
 Route::get('/search', 'IndexController@search');
 
+// User profile
+Route::get('/user/{username}', 'UserController@showUserprofile');
+
 // Unauthenticated routes group
 Route::group(['middleware' => 'unauthenticated'], function () {
     // Login

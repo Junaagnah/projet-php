@@ -11,3 +11,6 @@ define('COOKIE_CYPHER', 'aes-256-ctr');
 define('ROLE_USER', 'ROLE_USER');
 define('ROLE_MODERATOR', 'ROLE_MODERATOR');
 define('ROLE_ADMIN', 'ROLE_ADMIN');
+
+// ================================= OTHER =================================
+define('DEFAULT_PROFILE_PICTURE', 'defaultProfilePicture.png');
