@@ -83,7 +83,7 @@ class AdminController extends BaseController
     {
         $input = $request->all();
         //Update user to role Moderator
-        DB::table('users')->where('id', $input['user'])->update(['userRole' => 'ROLE_MODERATOR']);
+        DB::table('users')->where('id', $input['user'])->update(['userRole' => ROLE_MODERATOR]);
         //Search all user
         $users = DB::table('users')->get();
         return view('admin', ["users" => $users]);
@@ -97,7 +97,7 @@ class AdminController extends BaseController
     {
         $input = $request->all();
         //Update user to role Admin
-        DB::table('users')->where('id', $input['user'])->update(['userRole' => 'ROLE_ADMIN']);
+        DB::table('users')->where('id', $input['user'])->update(['userRole' => ROLE_ADMIN]);
         //Search all user
         $users = DB::table('users')->get();
         return view('admin', ["users" => $users]);
@@ -111,7 +111,7 @@ class AdminController extends BaseController
     {
         $input = $request->all();
         //Update user to role User
-        DB::table('users')->where('id', $input['user'])->update(['userRole' => 'ROLE_USER']);
+        DB::table('users')->where('id', $input['user'])->update(['userRole' => ROLE_USER]);
         //Search all user
         $users = DB::table('users')->get();
         return view('admin', ["users" => $users]);
