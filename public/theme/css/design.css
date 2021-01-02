@@ -136,6 +136,10 @@ label span {
   font-size: 10px;
 }
 
+a * {
+  color: black;
+}
+
 /* ------------- BADGES ------------- */
 
 .badge-action {

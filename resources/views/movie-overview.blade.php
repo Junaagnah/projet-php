@@ -96,6 +96,7 @@
                     <div class="col-2 d-flex justify-content-center align-items-center flex-column">
                         <label for="number">Note / 10 <span>(chiffre rond uniquement)</span></label>
                         <input
+                            class="pl-1 w-25"
                             type="number"
                             min="0"
                             max="10"

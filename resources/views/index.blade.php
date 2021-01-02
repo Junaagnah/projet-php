@@ -101,7 +101,7 @@
         </nav>
         <div class="row">
             @foreach ($movies['results'] as $movie)
-            <div class="col-4 mb-4">
+            <a class="col-4 mb-4" href="/movieOverview?movieId=<?php echo $movie['id'] ?>">
                 <div class="card">
                     <div class="card-body">
                         <div class="poster-container d-flex justify-content-center align-items-center">
@@ -120,7 +120,6 @@
                         @endif
                         </div>
                         <h4 class="card-title mt-3">{{ $movie['title'] }}</h4>
-                        <p><span class="badge badge-secondary">Rating <i class="far fa-star"></i></span></p>
                         @if(array_key_exists('release_date', $movie))
                         <p class="card-text"><i class="fas fa-calendar-day"></i> {{ $movie['release_date'] }}</p>
                         @else
@@ -136,29 +135,9 @@
                         @else
                         <p class="card-text movie-overview font-italic">Le Synopsis du film n'est pas disponible</p> 
                         @endif
-                        <hr>
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#">
-                                    <p class="h2 text-center"> <i class="far fa-comment-dots"></i></p>
-                                </a>
-
-                            </div>
-                            <div class="col-4">
-                                <a href="/movieOverview?movieId=<?php echo $movie['id'] ?>">
-                                    <p class="h2 text-center"> <i class="fas fa-info-circle"></i></p>
-                                </a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#">
-                                    <p class="h2 text-center"> <i class="fas fa-comments"></i></p>
-                                </a>
-                                <span class="top-cart-number">5</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
         <nav aria-label="navigation" class="d-flex justify-content-center">
