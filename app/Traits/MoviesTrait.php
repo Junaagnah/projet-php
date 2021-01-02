@@ -24,11 +24,11 @@ trait MoviesTrait {
         // Set the average note from our DB reviews
         $averageNoteTotal = 0;
         foreach ($result['reviews'] as &$value) {
-            $averageNoteTotal = $value['note'];
+            $averageNoteTotal = $averageNoteTotal + $value['note'];
         }
         
         if (count($result['reviews']) > 0) {
-            $result['movie']['average_note'] = $averageNoteTotal / count($result['reviews']);
+            $result['movie']['average_note'] = round($averageNoteTotal / count($result['reviews']), 1);
         } else {
             $result['movie']['average_note'] = NULL;
         }
