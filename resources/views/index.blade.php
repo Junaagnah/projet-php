@@ -145,7 +145,7 @@
 
                             </div>
                             <div class="col-4">
-                                <a href="#">
+                                <a href="/movieOverview?movieId=<?php echo $movie['id'] ?>">
                                     <p class="h2 text-center"> <i class="fas fa-info-circle"></i></p>
                                 </a>
                             </div>

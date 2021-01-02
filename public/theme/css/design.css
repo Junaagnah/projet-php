@@ -44,6 +44,98 @@
   cursor: default !important;
 }
 
+.movie-backdrop {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 500px;
+}
+
+.movie-backdrop .container, .movie-backdrop .container div {
+  max-height: 100%;
+}
+
+.movie-backdrop p, .movie-backdrop h2 {
+  color: white;
+}
+
+.poster {
+  box-shadow: 0px 0px 10px 0px black;
+}
+
+.note-and-genres-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.note-and-genres-container .note{
+  font-size: 2em;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 100%;
+  padding: 5px;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  line-height: 1.6;
+  border: 3px solid white;
+}
+
+.note-and-genres-container .note-info{
+  color: white;
+  width: 150px;
+}
+
+.movie-details-synopsis {
+  overflow: auto;
+}
+
+.reviews-container {
+  width: 80vw
+}
+
+.reviews-container .review {
+  width: 100%;
+  background-color: rgba(120, 120, 120, 0.1);
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.user-name {
+  width: 30%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-review {
+  width: 60%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.updated-at {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: gray;
+}
+
+.user-note {
+  width: 10%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  color: white;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  margin: auto;
+}
+
+label span {
+  font-size: 10px;
+}
+
 /* ------------- BADGES ------------- */
 
 .badge-action {
@@ -106,7 +198,7 @@
     background-color: rgb(148, 103, 21);
   }
 
-  .badge-mystere {
+  .badge-myst\`ere {
     color: #fff;
     background-color: rgb(155, 91, 163);
   }

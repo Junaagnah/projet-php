@@ -34,7 +34,7 @@ class IndexController extends BaseController
             $pageNumber = 1;
             return redirect('/search?searchByTitle='.$stringToSearch.'&pageNumber='.$pageNumber);
         }
-        $results = $this->searchMovie($stringToSearch, $pageNumber);
+        $results = $this->searchMovies($stringToSearch, $pageNumber);
         if (intval($results['total_pages']) === 0) {
             $results = null;
         } else if (intval($results['total_pages']) < $pageNumber) {
