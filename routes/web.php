@@ -23,6 +23,12 @@ Route::get('/search', 'IndexController@search');
 // User profile
 Route::get('/user/{username}', 'UserController@showUserprofile');
 
+// MovieOverwiew
+Route::get('/movieOverview', 'MovieController@getOverview');
+
+// Login
+Route::get('/login', 'AuthController@login');
+
 // Unauthenticated routes group
 Route::group(['middleware' => 'unauthenticated'], function () {
     // Login
@@ -42,6 +48,15 @@ Route::group(['middleware' => 'unauthenticated'], function () {
 Route::group(['middleware' => 'authenticated'], function () {
     // DisconnectAction
     Route::get('/disconnect', 'AuthController@Disconnect');
+
+    // Add review on movie overview
+    Route::post('/addReview', 'ReviewController@addReview');
+
+    // Edit review on movie overview
+    Route::post('/editReview', 'ReviewController@editReview');
+
+    // Delete review on movie overview
+    Route::post('/deleteReview', 'ReviewController@deleteReview');
 
     // Admin routes group
     Route::group(['middleware' => 'admin'], function () {
