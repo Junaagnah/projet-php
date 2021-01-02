@@ -50,92 +50,92 @@
     color: #fff;
     background-color: rgb(153, 22, 22);
   }
-  
+
   .badge-aventure {
     color: #fff;
     background-color: rgb(34, 77, 34);
   }
-  
+
   .badge-animation {
     color: #fff;
     background-color: rgb(184, 169, 37);
   }
-  
+
   .badge-comedie {
     color: #fff;
     background-color: rgb(37, 113, 184);
   }
-  
+
   .badge-crime {
     color: #fff;
     background-color: rgb(33, 10, 44);
   }
-  
+
   .badge-documentaire {
     color: #fff;
     background-color: rgb(55, 91, 146);
   }
-  
+
   .badge-drame {
     color: #fff;
     background-color: rgb(70, 69, 65);
   }
-  
+
   .badge-familial {
     color: #fff;
     background-color: rgb(218, 125, 20);
   }
-  
+
   .badge-fantastique {
     color: #fff;
     background-color: rgb(184, 37, 98);
   }
-  
+
   .badge-histoire {
     color: #fff;
     background-color: rgb(36, 53, 32);
   }
-  
+
   .badge-horreur {
     color: #fff;
     background-color: rgb(0, 0, 0);
   }
-  
+
   .badge-musique {
     color: #fff;
     background-color: rgb(148, 103, 21);
   }
-  
+
   .badge-mystere {
     color: #fff;
     background-color: rgb(155, 91, 163);
   }
-  
+
   .badge-romance {
     color: #fff;
     background-color: rgb(182, 37, 37);
   }
-  
+
   .badge-science-fiction {
     color: #fff;
     background-color: rgb(109, 20, 87);
   }
-  
+
   .badge-telefilm {
     color: #fff;
     background-color: rgb(12, 140, 150);
   }
-  
+
   .badge-thriller {
     color: #fff;
     background-color: rgb(17, 119, 63);
   }
-  
+
   .badge-guerre {
     color: #fff;
     background-color: rgb(73, 28, 28);
   }
-  
+
   .badge-western {
     color: #fff;
     background-color: rgb(102, 45, 13);
@@ -147,4 +147,9 @@
 
 .background-red {
     background-color: #d99797 !important;
+}
+
+.profile-picture {
+    max-height: 150px;
+    max-width: 150px;
 }

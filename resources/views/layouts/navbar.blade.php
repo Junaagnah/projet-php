@@ -19,7 +19,7 @@
                         </div><!-- #top-search end -->
                     @else
                         <div id="top-account" class="px-4">
-                            <a class="pr-4" href="#" data-lightbox="inline">{{ $_SESSION['user']['username'] }}</a>
+                            <a class="pr-4" href="/user/{{ $_SESSION['user']['username'] }}" data-lightbox="inline">{{ $_SESSION['user']['username'] }}</a>
                             <a href="{{ url('disconnect') }}" data-lightbox="inline">Se déconnecter</a>
                         </div>
                     @endif
