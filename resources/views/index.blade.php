@@ -121,7 +121,7 @@
                         </div>
                         <h4 class="card-title mt-3">{{ $movie['title'] }}</h4>
                         @if(array_key_exists('release_date', $movie))
-                        <p class="card-text"><i class="fas fa-calendar-day"></i> {{ $movie['release_date'] }}</p>
+                        <p class="card-text"><i class="fas fa-calendar-day"></i> {{ date_format(date_create($movie['release_date']), 'd-m-Y') }}</p>
                         @else
                         <p class="card-text"><i class="fas fa-calendar-day mr-1"></i>Date de sortie inconnue</p>
                         @endif

@@ -18,7 +18,7 @@ class MovieController extends BaseController
     public function getOverview(Request $request)
     {
         $movieId = $request->input('movieId');
-        $result = $this->getMovie($movieId);
+        $result = $this->getMovieById($movieId);
         return view('movie-overview', ['movie' => $result['movie'], 'reviews' => $result['reviews']]);
     }
 }
