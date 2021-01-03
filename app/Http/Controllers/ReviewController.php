@@ -27,7 +27,7 @@ class ReviewController extends BaseController
         $userCommentOnThisMovie = DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get();
 
         // Get the movie that the user try to rate, it will be used to redirect when the job is done
-        $currentMovie = $this->getMovie($input['FK_movieId']);
+        $currentMovie = $this->getMovieById($input['FK_movieId']);
 
         // If the user already added a comment on this movie return the error view
         if (!empty($userCommentOnThisMovie[0])) {
@@ -55,7 +55,7 @@ class ReviewController extends BaseController
         $userCommentOnThisMovie = json_decode(DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get(), true);
 
         // Get the movie that the user try to rate, it will be used to redirect when the job is done
-        $currentMovie = $this->getMovie($input['FK_movieId']);
+        $currentMovie = $this->getMovieById($input['FK_movieId']);
 
         // If the never added a comment on this movie return the movie view with an error
         if (empty($userCommentOnThisMovie[0])) {
@@ -78,7 +78,7 @@ class ReviewController extends BaseController
         $userCommentOnThisMovie = json_decode(DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get(), true);
 
         // Get the movie from where the user want to remove hisq review, it will be used to redirect when the job is done
-        $currentMovie = $this->getMovie($input['FK_movieId']);
+        $currentMovie = $this->getMovieById($input['FK_movieId']);
 
         // If the never added a comment on this movie return the movie view with an error
         if (empty($userCommentOnThisMovie[0])) {

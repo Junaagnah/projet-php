@@ -8,6 +8,11 @@
             <img src="https://image.tmdb.org/t/p/original<?php echo $movie['poster_path'] ?>" alt="" class="poster w-25 rounded">
             <div class="w-75 p-5 d-flex flex-column">
                 <h2 class="mb-3">{{$movie['title']}}</h2>
+                @if(array_key_exists('release_date', $movie))
+                <p class="card-text mb-3 mt-0"><i class="fas fa-calendar-day"></i> {{ date_format(date_create($movie['release_date']), 'd-m-Y') }}</p>
+                @else
+                <p class="card-text mb-3 mt-0"><i class="fas fa-calendar-day mr-1"></i>Date de sortie inconnue</p>
+                @endif
                 <div class='note-and-genres-container'>
                     @if (empty($movie['average_note']))
                     <p class="note-info my-0 pl-2 mr-3 font-weight-bold text-center">Aucune revue de ce film sur notre site pour le moment</p>
@@ -24,7 +29,7 @@
                     @endif
 
                     @foreach ($movie['genres'] as $movieGenre)
-                    <span class="badge mr-1 badge-<?php echo strtolower($movieGenre['name']) ?>">{{ $movieGenre['name'] }}</span>
+                    <span class="badge mr-1 badge-<?php echo strtolower($movieGenre['genreClassName']) ?>">{{ $movieGenre['name'] }}</span>
                     @endforeach
                 </div>
                 <p class='movie-details-synopsis mt-3 pr-3'><b>Synopsis : </b>{{$movie['overview']}}</p>
