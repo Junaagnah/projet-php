@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'profilePicturePath', 'UserRole', 'password', "isBanned"
+        'username', 'email', 'profilePicturePath', 'UserRole', 'password', "isBanned", 'title', 'lastName', 'firstName', 'private'
     ];
 
     /**
@@ -104,4 +104,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
         return get_object_vars($user);
     }
+
+    /**
+     * @param array $attributes
+     * @param array $options
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = []): bool
+    {
+        return parent::update($attributes, $options);
+    }
+
+
 }

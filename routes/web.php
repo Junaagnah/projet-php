@@ -29,6 +29,9 @@ Route::get('/movieOverview', 'MovieController@getOverview');
 // Login
 Route::get('/login', 'AuthController@login');
 
+//Edit profile
+Route::post('/edit-user-action/{username}', 'UserController@editUserAction');
+
 // Unauthenticated routes group
 Route::group(['middleware' => 'unauthenticated'], function () {
     // Login
