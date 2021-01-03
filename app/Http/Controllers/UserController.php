@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Traits\SessionTrait;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Laravel\Lumen\Application;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\User;
-use mysql_xdevapi\Exception;
 
 class UserController extends BaseController {
 
@@ -18,7 +20,8 @@ class UserController extends BaseController {
      * @param int $id
      * @return View
      */
-    public function showUserProfile(Request $request, string $username) {
+    public function showUserProfile(Request $request, string $username): View
+    {
         $user = User::getOneUserByUsername($username);
 
         //@TODO: récupérer les 5 ou 10 derniers commentaires de l'utilisateur
@@ -33,7 +36,8 @@ class UserController extends BaseController {
 
     /**
      * @param Request $request
-     * @return Exception|ValidationException|View
+     * @param string $username
+     * @return ValidationException|View|string
      */
     public function editUserAction(Request $request, string $username)
     {
@@ -41,27 +45,18 @@ class UserController extends BaseController {
 
         $user = User::where('username', $username)->first();
 
-        $password = hash('sha256', $input['password_confirmation']);
-
-        //Checked if user is user or admin
-        //dd($user->getAuthPassword());
-        //if ($user->getAuthPassword() === $hashedPassword)
-
-        dump($input);
-        //if ($SESSION[])
-        $encryptedUsername = $request->cookie(COOKIE_SESSION_KEY);
-        $userLoggedIn = SessionTrait::getSessionCookieValue($encryptedUsername);
-        $currentUser = User::getOneUserByUsername($userLoggedIn);
-
-        dump($currentUser['password']);
-        dump($input['password_confirmation']);
-        dump($password);
-        if ($currentUser['password'] == $password && $currentUser['username'] == $input['username'] || $currentUser['userRole'] == "ROLE_ADMIN")
+        if (isset($input['profile_picture']) && $input['profile_picture'] !== NULL)
         {
-            die();
+            //Delete and set image name
+            $input['profilePicturePath'] = $this->processFile($request->file('profile_picture'), $user);
+            //Fix error Handling Todo: Improve
+            if (gettype($input['profilePicturePath']) !== 'string')
+            {
+                return $input['profilePicturePath'];
+            }
         }
 
-        if ($input['password'] !== null) {
+        if (isset($input['password'])) {
             $password = hash('sha256', $input['password']);
             $input['password'] = $password;
         }
@@ -69,22 +64,6 @@ class UserController extends BaseController {
         if (isset($input['private']) && $input['private'] !== '')
         {
             $input['private'] = intval($input['private']);
-        }
-
-        if (isset($input['profile_picture']) && $input['profile_picture'] !== NULL)
-        {
-            $image_name = Str:: uuid() .'.'. $request->file('profile_picture')->getClientOriginalExtension();
-            $request->file('profile_picture')->move('images/profile_picture', $image_name);
-            $input['profilePicturePath'] = $image_name;
-
-            /*try {
-                $this->validate($request, [
-                    'profile_picture' => 'image|max:32.896',
-
-                ]);
-            } catch (ValidationException $errors) {
-                return view('errors', ['error' => $errors->getResponse()->getContent()]);
-            }*/
         }
 
         foreach ($input as $key => $value) {
@@ -96,7 +75,37 @@ class UserController extends BaseController {
 
         $user->update($input);
 
-        // Once the user is registered, we connect him and redirect to index
         return View('profile', ['user' => $user]);
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @param User $user
+     * @return string
+     */
+    public function processFile(UploadedFile $file, User $user)
+    {
+        $authorizedMimeType = [
+            'image/jpg',
+            'image/jpeg',
+            'image/gif',
+            'image/png',
+            'image/svg'
+        ];
+
+        //Check file type with array
+        if (in_array($file->getMimeType(), $authorizedMimeType)){
+
+            //check if user already has a profile picture
+            if (isset($user['profilePicturePath'])) {
+                unlink('images/profile_picture/' . $user['profilePicturePath']);
+            }
+            $image_name = Str:: uuid() .'.'. $file->getClientOriginalExtension();
+            $file->move('images/profile_picture', $image_name);
+
+            return $image_name;
+        } else {
+            return View('errors', ['error' => 'The file is not valid']);
+        }
     }
 }
