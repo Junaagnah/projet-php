@@ -86,8 +86,18 @@
                 <h2>Derniers commentaires</h2>
             </div>
             <div class="center">
-                @if(empty($lastComments))
+                @if(empty($reviews))
                     <h5>Pas de commentaires à afficher</h5>
+                @else
+                    <div class="reviews-container d-flex flex-column justify-content-center align-items-center m-auto pb-lg-5">
+                        @foreach($reviews as $review)
+                            <div class='review d-flex justify-content-center mb-3'>
+                                <div class="user-name p-3">{{ $review['username'] }}</div>
+                                <div class="user-review p-3 pb-5">{{ $review['review'] }} <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span></div>
+                                <div class="user-note p-3 d-flex justify-content-center align-items-center">{{ $review['note'] }}</div>
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>
