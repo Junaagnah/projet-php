@@ -21,7 +21,7 @@
                     <p class="text-center user-info h4 mt-3">Prénom : {{$user['firstName']}}</p>
                     <p class="text-center user-info h4 mt-3">Courriel : {{$user['email']}}</p>
                     <p class="text-center user-info h4 mt-3">Rôle : {{$user['userRole']}}</p>
-                @elseif($user['private'] == true)
+                @elseif($user['private'] == true || $user['isBanned'] == true)
                     <p class="text-center user-info h4 mt-3">Pseudo : {{$user['username']}}</p>
                     <p class="text-center user-info h4 mt-3">Rôle : {{$user['userRole']}}</p>
                 @endif
