@@ -53,9 +53,9 @@
                                                 <div class="row">
                                                     <div class="col-5 mx-auto">
                                                         <label for="email" class="mt-2">Courriel</label>
-                                                        <input type="email" class=" mt-2 form-control " id="email" name="email" placeholder="{{$user['email']}}">
+                                                        <input maxlength="100" type="email" class=" mt-2 form-control " id="email" name="email" placeholder="{{$user['email']}}">
                                                         <label for="username" class="mt-2">Pseudo</label>
-                                                        <input type="text" class="mt-2 form-control" id="username" name="username" placeholder="{{$user['username']}}">
+                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="username" name="username" placeholder="{{$user['username']}}">
                                                         <label for="title" class="mt-2">Titre</label>
                                                         <select class="mt-2 form-control" name="title" id="title">
                                                             <option value="">-- Sélectionner un titre --</option>
@@ -67,9 +67,9 @@
                                                             <option value="Maître">Maître</option>
                                                         </select>
                                                         <label for="lastName" class="mt-2">Prénom</label>
-                                                        <input type="text" class="mt-2 form-control" id="lastName" name="lastName" placeholder="{{$user['lastName']}}" >
+                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="lastName" name="lastName" placeholder="{{$user['lastName']}}" >
                                                         <label for="firstName" class="mt-2">Nom de famille</label>
-                                                        <input type="text" class="mt-2 form-control" id="firstName" name="firstName" placeholder="{{$user['firstName']}}" >
+                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="firstName" name="firstName" placeholder="{{$user['firstName']}}" >
                                                         <label class="mt-2">Photo de profil</label>
                                                         <input id="profile_picture" name="profile_picture" type="file" class="file-loading mt-2" data-show-preview="false">
                                                         <label for="private" class="mt-2">Visibilité du profil</label>
@@ -79,7 +79,7 @@
                                                             <option value="1">Privé</option>
                                                         </select>
                                                         <label for="password_confirmation" class="mt-3">Vérification du mot de passe</label>
-                                                        <input type="password" class="mt-2 form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmation du mot de passe" required>
+                                                        <input maxlength="32" type="password" class="mt-2 form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmation du mot de passe" required>
                                                         <button type="submit" class="mt-4 btn btn-primary"><i class="fas fa-sign-in-alt"></i> Changer les informations</button>
                                                     </div>
                                                 </div>
