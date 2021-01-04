@@ -142,7 +142,7 @@
                 <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span>
             </div>
             <div class="user-note p-3  d-flex justify-content-center align-items-center">{{ $review['note'] }}</div>
-            @if ($_SESSION['user']['userRole'] === ROLE_ADMIN)
+            @if (!empty($_SESSION['user']) && $_SESSION['user']['userRole'] === ROLE_ADMIN)
             <form
                 action="/adminDeleteReview"
                 method="post"
