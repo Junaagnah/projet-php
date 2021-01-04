@@ -57,7 +57,7 @@
                             <input
                                 class="pl-1 w-25"
                                 type="number"
-                                min="0"
+                                min="1"
                                 max="10"
                                 step="1"
                                 id="note"
