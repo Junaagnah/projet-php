@@ -23,6 +23,7 @@
                     <div class="row">
                         <div class="col-10">
                             <input
+                                maxlength="500"
                                 type="text"
                                 class="form-control"
                                 id="searchByTitle"

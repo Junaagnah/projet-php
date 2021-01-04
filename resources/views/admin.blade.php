@@ -22,6 +22,7 @@
                     <div class="col-8">
                         <label class="text-center">Pseudo ou adresse e-mail de l'utilisateur</label>
                         <input
+                            maxlength="100"
                             name="search"
                             type="text"
                             class="form-control"
