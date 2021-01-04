@@ -44,8 +44,6 @@ class UserController extends BaseController {
 
         $user = User::where('username', $username)->first();
 
-        //dd(hash('sha256', $input['password_confirmation']));
-
         if ($_SESSION['user']['userRole'] !== 'ROLE_ADMIN')
         {
             if (($user['password'] !== hash('sha256', $input['password_confirmation']) && $user['username'] !== $_SESSION['user']['username']))

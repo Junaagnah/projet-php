@@ -61,7 +61,7 @@ class ReviewController extends BaseController
         }
 
         // Update the review
-        DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->update(['review' => $input['review'], 'note' => $input['note']]);
+        DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->update(['review' => $input['review'], 'note' => $input['note'], 'updated_at' => date('Y-m-d h:i:s')]);
 
         // Return the movie view
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
