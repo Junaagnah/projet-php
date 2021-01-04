@@ -41,7 +41,6 @@ class Authenticate
             return $next($request);
 
         $username = SessionTrait::getSessionCookieValue($encryptedUsername);
-
         if (!empty($username)) {
             $user = User::getOneUserByUsername($username);
             if (!empty($user)) {
@@ -49,7 +48,7 @@ class Authenticate
                 if (!$user['isBanned']) {
                     // If the user exists, we set his account in the session global variable and reset a new cookie
                     $_SESSION['user'] = $user;
-                    SessionTrait::setSessionCookie($username);
+                    // SessionTrait::setSessionCookie($username);
                 }
                 else {
                     // If the user is banned, we disconnect him and redirect him to the errors page

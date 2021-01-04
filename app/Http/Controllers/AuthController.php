@@ -41,7 +41,7 @@ class AuthController extends BaseController
 
         try {
             $this->validate($request, [
-                'username' => ['required', 'unique:users'],
+                'username' => ['required', 'unique:users', 'alpha_num'],
                 'firstName' => ['required'],
                 'lastName' => ['required'],
                 'title' => ['required'],

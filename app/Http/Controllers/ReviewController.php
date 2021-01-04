@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Traits\MoviesTrait;
-use App\Traits\SessionTrait;
 use Illuminate\Support\Facades\DB;
 use App\Review;
 
@@ -13,7 +12,6 @@ class ReviewController extends BaseController
 {
 
     use MoviesTrait;
-    use SessionTrait;
 
     public function addReview(Request $request)
     {
@@ -63,7 +61,7 @@ class ReviewController extends BaseController
         }
 
         // Update the review
-        DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->update(['review' => $input['review'], 'note' => $input['note']]);
+        DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->update(['review' => $input['review'], 'note' => $input['note'], 'updated_at' => date('Y-m-d h:i:s')]);
 
         // Return the movie view
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
