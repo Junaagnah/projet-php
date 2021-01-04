@@ -9,7 +9,6 @@ define('COOKIE_CYPHER', 'aes-256-ctr');
 
 // ================================= ROLES =================================
 define('ROLE_USER', 'ROLE_USER');
-define('ROLE_MODERATOR', 'ROLE_MODERATOR');
 define('ROLE_ADMIN', 'ROLE_ADMIN');
 
 // ================================= OTHER =================================
