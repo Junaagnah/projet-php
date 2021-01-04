@@ -28,7 +28,7 @@ class UserController extends BaseController {
         $user = User::getOneUserByUsername($username);
 
         if (!empty($user)) {
-            $reviews = $this->getFiveLastUserReviews($user['id']);
+            $reviews = $this->getLastUserReviews($user['id']);
 
             // Getting the movies images if there is movies
             if (!empty($reviews)) {
@@ -161,8 +161,8 @@ class UserController extends BaseController {
      * @param int $userId
      * @return Array
      */
-    private function getFiveLastUserReviews(int $userId) {
-        $reviews = DB::table('reviews')->select('*')->where('FK_userId', $userId)->orderByDesc('updated_at')->limit(5)->get();
+    private function getLastUserReviews(int $userId) {
+        $reviews = DB::table('reviews')->select('*')->where('FK_userId', $userId)->orderByDesc('updated_at')->get();
 
         return json_decode($reviews, true);
     }
