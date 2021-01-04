@@ -38,7 +38,7 @@ trait MoviesTrait {
         foreach ($result['movie']['genres'] as &$movieGenreValue) {
             $genreAndGenreClassNameArray = array();
             $genreAndGenreClassNameArray['name'] = $movieGenreValue['name'];
-            $genreAndGenreClassNameArray['genreClassName'] = str_replace('\'', '', iconv('UTF-8','ASCII//TRANSLIT', $genreAndGenreClassNameArray['name']));
+            $genreAndGenreClassNameArray['genreClassName'] = str_replace('è', 'e', str_replace('é', 'e', $genreAndGenreClassNameArray['name']));
             array_push($movieParsedGenres, $genreAndGenreClassNameArray);
         }
         $result['movie']['genres'] = $movieParsedGenres;
@@ -64,7 +64,7 @@ trait MoviesTrait {
             foreach ($movie['genre_ids'] as $genreId) {
                 $genreAndGenreClassname = array();
                 $genreAndGenreClassname['genre'] = $genresArray[array_search($genreId, array_column($genresArray, 'id'))]['name'];
-                $genreAndGenreClassname['genreClassName'] = str_replace('\'', '', iconv('UTF-8','ASCII//TRANSLIT', $genreAndGenreClassname['genre']));
+                $genreAndGenreClassname['genreClassName'] = str_replace('è', 'e', str_replace('é', 'e', $genreAndGenreClassname['genre']));
                 array_push($movieParsedGenres, $genreAndGenreClassname);
             }
             $movie['genre'] = $movieParsedGenres;
