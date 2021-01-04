@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\MoviesTrait;
+use App\Traits\SessionTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -15,6 +16,7 @@ use App\User;
 class UserController extends BaseController {
 
     use MoviesTrait;
+    use SessionTrait;
 
     /**
      * @param Request $request
@@ -112,6 +114,12 @@ class UserController extends BaseController {
         }
 
         $user->update($input);
+        
+        if (isset($input['username'])) {
+            $username = $input['username'];
+            SessionTrait::unsetSessionCookie();
+            SessionTrait::setSessionCookie($username);
+        }
 
         return redirect('/user/' . $username);
     }
@@ -136,7 +144,10 @@ class UserController extends BaseController {
 
             //check if user already has a profile picture
             if (isset($user['profilePicturePath'])) {
-                unlink('images/profile_picture/' . $user['profilePicturePath']);
+                try {
+                    unlink('images/profile_picture/' . $user['profilePicturePath']);
+                } catch (\Throwable $th) {
+                }
             }
             $image_name = Str:: uuid() . '.' . $file->getClientOriginalExtension();
             $file->move('images/profile_picture', $image_name);
