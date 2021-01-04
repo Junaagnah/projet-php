@@ -44,6 +44,24 @@ class UserController extends BaseController {
 
         $user = User::where('username', $username)->first();
 
+        //dd(hash('sha256', $input['password_confirmation']));
+
+        if ($_SESSION['user']['userRole'] !== 'ROLE_ADMIN')
+        {
+            if (($user['password'] !== hash('sha256', $input['password_confirmation']) && $user['username'] !== $_SESSION['user']['username']))
+            {
+                return View('errors', ['error' => "Vous devez être l' utilisateur propriétaire du profil ou un utilisateur Admin pour pouvoir le modifier"]);
+            }
+        }
+
+
+        foreach ($input as $key => $value) {
+            if ($value === '')
+            {
+                unset($input[$key]);
+            }
+        }
+
         if (isset($input['profile_picture']) && $input['profile_picture'] !== NULL)
         {
             //Delete and set image name
@@ -55,21 +73,9 @@ class UserController extends BaseController {
             }
         }
 
-        if (isset($input['password'])) {
-            $password = hash('sha256', $input['password']);
-            $input['password'] = $password;
-        }
-
         if (isset($input['private']) && $input['private'] !== '')
         {
             $input['private'] = intval($input['private']);
-        }
-
-        foreach ($input as $key => $value) {
-            if ($value === '')
-            {
-                unset($input[$key]);
-            }
         }
 
         $user->update($input);
@@ -91,7 +97,7 @@ class UserController extends BaseController {
             'image/png',
             'image/svg'
         ];
-
+        
         //Check file type with array
         if (in_array($file->getMimeType(), $authorizedMimeType)){
 
