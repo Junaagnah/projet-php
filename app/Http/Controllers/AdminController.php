@@ -15,7 +15,7 @@ class AdminController extends BaseController
      */
     public function show() : View
     {
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         return view('admin', ["users" => $users]);
     }
 
@@ -27,21 +27,22 @@ class AdminController extends BaseController
     {
         $input = $request->all();
 
-        if ($input['role'] === "all" & $input['search'] != "") {
-            $users = DB::table('users')->where('email', $input['search'])->orwhere('username', $input['search'])->get();
+        if ($input['role'] === "all" & $input['search'] != "")
+        {
+            $users = DB::table('users')->where('email', $input['search'])->orwhere('username', $input['search'])->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
         if ($input['search'] === "" & $input['role'] != "all")
         {
-            $users = DB::table('users')->where('userRole', $input['role'])->get();
+            $users = DB::table('users')->where('userRole', $input['role'])->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
         if ($input['search'] !== "" & $input['role'] != "all"){
-            $users = DB::table('users')->where('email' , [$input['search']])->orWhere('username', $input['search'])->where('userRole', $input['role'])->get();
+            $users = DB::table('users')->where('email' , [$input['search']])->orWhere('username', $input['search'])->where('userRole', $input['role'])->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
         if ($input['role'] === "all" & $input['search'] === "") {
-            $users = DB::table('users')->get();
+            $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
         return view('admin', ["users" => $users]);
@@ -57,7 +58,7 @@ class AdminController extends BaseController
         //Update isBanned properties to true
         DB::table('users')->where('id', $input['user'])->update(['isBanned' => true]);
         //Search all user
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         return view('admin', ["users" => $users]);
     }
 
@@ -71,7 +72,7 @@ class AdminController extends BaseController
         //Update isBanned properties to false
         DB::table('users')->where('id', $input['user'])->update(['isBanned' => false]);
         //Search all user
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         return view('admin', ["users" => $users]);
     }
 
@@ -85,7 +86,7 @@ class AdminController extends BaseController
         //Update user to role Admin
         DB::table('users')->where('id', $input['user'])->update(['userRole' => ROLE_ADMIN]);
         //Search all user
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         return view('admin', ["users" => $users]);
     }
 
@@ -99,7 +100,7 @@ class AdminController extends BaseController
         //Update user to role User
         DB::table('users')->where('id', $input['user'])->update(['userRole' => ROLE_USER]);
         //Search all user
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         return view('admin', ["users" => $users]);
     }
 

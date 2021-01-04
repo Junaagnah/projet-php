@@ -54,14 +54,31 @@ class UserController extends BaseController {
 
         $user = User::where('username', $username)->first();
 
-        if ($_SESSION['user']['userRole'] !== 'ROLE_ADMIN')
+        if (!empty($_SESSION['user']))
         {
-            if (($user['password'] !== hash('sha256', $input['password_confirmation']) && $user['username'] !== $_SESSION['user']['username']))
+            switch ($_SESSION['user']['userRole'])
             {
-                return View('errors', ['error' => "Vous devez être l' utilisateur propriétaire du profil ou un utilisateur Admin pour pouvoir le modifier"]);
-            }
-        }
+                case 'ROLE_ADMIN':
+                    if ($_SESSION['user']['password'] !== hash('sha256', $input['password_confirmation']))
+                    {
+                        return View('errors', ['error' => "Votre mot de passe est incorrect"]);
+                    }
+                    break;
 
+                case 'ROLE_USER':
+                    if ($user['password'] !== hash('sha256', $input['password_confirmation']))
+                    {
+                        return View('errors', ['error' => "Votre mot de passe est incorrect"]);
+                    }
+                    if ($user['username'] !== $_SESSION['user']['username'])
+                    {
+                        return View('errors', ['error' => "Vous devez être le propriétaire du profil ou un utilisateur Admin pour pouvoir modifier le profil"]);
+                    }
+                    break;
+            }
+        } else {
+            return View('errors', ['error' => "Vous devez être connecté(e) pour pouvoir modifier un profil"]);
+        }
 
         foreach ($input as $key => $value) {
             if ($value === '')
