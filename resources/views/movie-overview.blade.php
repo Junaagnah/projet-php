@@ -55,7 +55,7 @@
                         <div class="col-2 d-flex justify-content-center align-items-center flex-column">
                             <label class="text-center" for="number">Note / 10 <span>(chiffre rond uniquement)</span></label>
                             <input
-                                class="pl-1 w-25"
+                                class="pl-1 w-50"
                                 type="number"
                                 min="1"
                                 max="10"
@@ -101,7 +101,7 @@
                     <div class="col-2 d-flex justify-content-center align-items-center flex-column">
                         <label for="number">Note / 10 <span>(chiffre rond uniquement)</span></label>
                         <input
-                            class="pl-1 w-25"
+                            class="pl-1 w-50"
                             type="number"
                             min="1"
                             max="10"
