@@ -5,7 +5,16 @@
 @section('content')
     <div class='movie-backdrop d-flex justify-content-center align-items-center' style="background-image: linear-gradient(90deg, rgba(43,47,86,1) 0%, rgba(9,9,45,0.85) 50%, rgba(43,47,86,1) 100%), url('https://image.tmdb.org/t/p/original<?php echo $movie['backdrop_path'] ?>');">
         <div class='container w-75 d-flex'>
+
+            @if (!$movie['poster_path'])
+            <img
+                class="empty-poster w-25 rounded"
+                src="{{url('images/logo.png')}}"
+                alt=""
+            >
+            @else
             <img src="https://image.tmdb.org/t/p/original<?php echo $movie['poster_path'] ?>" alt="" class="poster w-25 rounded">
+            @endif
             <div class="w-75 p-5 d-flex flex-column">
                 <h2 class="mb-3">{{$movie['title']}}</h2>
                 @if(array_key_exists('release_date', $movie))
