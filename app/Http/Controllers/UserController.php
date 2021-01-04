@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\MoviesTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Laravel\Lumen\Application;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\User;
 
 class UserController extends BaseController {
+
+    use MoviesTrait;
 
     /**
      * @param Request $request
@@ -25,8 +26,16 @@ class UserController extends BaseController {
         $user = User::getOneUserByUsername($username);
 
         if (!empty($user)) {
-
             $reviews = $this->getFiveLastUserReviews($user['id']);
+
+            // Getting the movies images if there is movies
+            if (!empty($reviews)) {
+                foreach($reviews as &$review) {
+                    $movie = $this->getMovieById($review['FK_movieId']);
+                    $review['poster_path'] = $movie['movie']['poster_path'];
+                }
+            }
+
             return View('profile', ['user' => $user, 'reviews' => $reviews]);
         }
         else {
@@ -79,7 +88,7 @@ class UserController extends BaseController {
 
         $user->update($input);
 
-        return View('profile', ['user' => $user]);
+        return redirect('/user/' . $username);
     }
 
     /**
@@ -96,7 +105,7 @@ class UserController extends BaseController {
             'image/png',
             'image/svg'
         ];
-        
+
         //Check file type with array
         if (in_array($file->getMimeType(), $authorizedMimeType)) {
 
@@ -109,7 +118,7 @@ class UserController extends BaseController {
 
             return $image_name;
         } else {
-            return View('errors', ['error' => 'The file is not valid']);
+            return View('errors', ['error' => 'Le fichier n\'est pas valide.']);
         }
     }
 
