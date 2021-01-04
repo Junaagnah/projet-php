@@ -57,7 +57,7 @@
                             <input
                                 class="pl-1 w-25"
                                 type="number"
-                                min="0"
+                                min="1"
                                 max="10"
                                 step="1"
                                 id="note"
@@ -123,14 +123,38 @@
     @endif
     <div class="heading-block topmargin-lg center">
             <h2>Derniers commentaires</h2>
-        </div>
+    </div>
     @if (!empty($reviews))
     <div class="reviews-container d-flex flex-column justify-content-center align-items-center m-auto">
         @foreach ($reviews as $review)
         <div class='review d-flex justify-content-center mb-3'>
-            <div class="user-name p-3">{{ $review['username'] }}</div>
-            <div class="user-review p-3 pb-5">{{ $review['review'] }} <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span></div>
+            <div class="user-name p-3 center">
+                <a href="/user/{{ $review['username'] }}"><h5>{{ $review['username'] }}</h5></a>
+                <br>
+                @if(!empty($review['profilePicturePath']))
+                    <img class="profile-picture img-circle" src="/images/profile_picture/{{ $review['profilePicturePath'] }}" alt="profile picture">
+                @else
+                    <img class="profile-picture img-circle" src="/images/profile_picture/{{ DEFAULT_PROFILE_PICTURE }}" alt="profile picture">
+                @endif
+            </div>
+            <div class="user-review p-3 pb-5">
+                {{ $review['review'] }}
+                <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span>
+            </div>
             <div class="user-note p-3  d-flex justify-content-center align-items-center">{{ $review['note'] }}</div>
+            @if (!empty($_SESSION['user']) && $_SESSION['user']['userRole'] === ROLE_ADMIN)
+            <form
+                action="/adminDeleteReview"
+                method="post"
+                class='d-flex justify-content-center align-items-center pb-3'
+            >
+                <input type="hidden" value="{{ $movie['id'] }}" name="FK_movieId"/>
+                <input type="hidden" value="{{ $review['id'] }}" name="id"/>
+                <button
+                    class="btn btn-danger admin-delete-review-button"
+                >Supprimer</button>
+            </form>
+            @endif
         </div>
         @endforeach
     </div>

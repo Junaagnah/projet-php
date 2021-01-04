@@ -80,20 +80,6 @@ class AdminController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function promoteUserToModerator(Request $request) : View
-    {
-        $input = $request->all();
-        //Update user to role Moderator
-        DB::table('users')->where('id', $input['user'])->update(['userRole' => ROLE_MODERATOR]);
-        //Search all user
-        $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
-        return view('admin', ["users" => $users]);
-    }
-
-    /**
-     * @param Request $request
-     * @return View
-     */
     public function promoteUserToAdmin(Request $request) : View
     {
         $input = $request->all();
@@ -116,5 +102,15 @@ class AdminController extends BaseController
         //Search all user
         $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
         return view('admin', ["users" => $users]);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function adminDeleteReview(Request $request) {
+        $input = $request->all();
+        // Delete the review
+        DB::table('reviews')->where('id', $input['id'])->delete();
+        return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
     }
 }

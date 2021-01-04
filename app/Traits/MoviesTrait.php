@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
@@ -19,14 +19,14 @@ trait MoviesTrait {
         // Get the movie from the MovieDB API
         $result['movie'] = json_decode(file_get_contents('https://api.themoviedb.org/3/movie/'.$id.'?api_key='.MOVIE_DB_API_KEY.'&language=fr'), true);
         // Get the related reviews from our DB
-        $result['reviews'] = json_decode(DB::table('reviews')->where('FK_movieID', $id)->join('users', 'reviews.FK_userID', '=', 'users.id')->select('reviews.*', 'users.username')->orderByDesc('reviews.updated_at')->get(), true);
+        $result['reviews'] = json_decode(DB::table('reviews')->where('FK_movieID', $id)->join('users', 'reviews.FK_userID', '=', 'users.id')->select('reviews.*', 'users.username', 'users.profilePicturePath')->orderByDesc('reviews.updated_at')->get(), true);
 
         // Set the average note from our DB reviews
         $averageNoteTotal = 0;
         foreach ($result['reviews'] as &$reviewValue) {
             $averageNoteTotal = $averageNoteTotal + $reviewValue['note'];
         }
-        
+
         if (count($result['reviews']) > 0) {
             $result['movie']['average_note'] = round($averageNoteTotal / count($result['reviews']), 1);
         } else {

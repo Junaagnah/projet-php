@@ -33,7 +33,6 @@
                         <select name="role" class="form-control">
                             <option value="all">Tous</option>
                             <option value="ROLE_USER">Utilisateur</option>
-                            <option value="ROLE_MODERATOR">Modérateur</option>
                             <option value="ROLE_ADMIN">Administrateur</option>
                         </select>
                     </div>
@@ -86,35 +85,13 @@
                 <td>
                     @switch($user->userRole)
                         @case('ROLE_USER')
-                            <form action="/promote-moderator" method="post">
-                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
-                                    Passer modérateur
-                                </button>
-                            </form>
                             <form action="/promote-admin" method="post">
                                 <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
                                     Passer Administrateur
-                                </button>
-                            </form>
-                            @break
-                        @case('ROLE_MODERATOR')
-                            <form action="/promote-admin" method="post">
-                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
-                                    Passer Administrateur
-                                </button>
-                            </form>
-                            <form action="/demote-user" method="post">
-                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
-                                    Passer Utilisateur
                                 </button>
                             </form>
                             @break
                         @case('ROLE_ADMIN')
-                            <form action="/promote-moderator" method="post">
-                                <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
-                                    Passer Modérateur
-                                </button>
-                            </form>
                             <form action="/demote-user" method="post">
                                 <button class="btn btn-primary" name="user" type="submit" value="{{$user->id}}">
                                     Passer Utilisateur
