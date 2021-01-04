@@ -64,7 +64,7 @@
             <tbody>
             @foreach ($users as $user)
                 <tr @if ($user->isBanned == true) class="background-red" @endif>
-                <td>{{$user->username}}</td>
+                <td><a href="/user/{{ $user->username }}">{{ $user->username }}</a></td>
                 <td>{{$user->userRole}}</td>
                 <td>{{$user->email}}</td>
                 <td>
