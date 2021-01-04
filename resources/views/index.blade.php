@@ -48,7 +48,7 @@
     <div class="container">
         @if(is_null($stringToSearch))
         <div class="heading-block topmargin-lg center">
-            <h2>Dernières sorties</h2>
+            <h2>En salle en ce moment</h2>
             <span class="mx-auto">Donnez votre avis sur les films diffusés en ce moment.</span>
         </div>
         @else
