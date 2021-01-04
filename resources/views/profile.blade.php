@@ -62,8 +62,6 @@
                                                 <input type="text" class="mt-2 form-control" id="lastName" name="lastName" placeholder="{{$user['lastName']}}" >
                                                 <label for="firstName" class="mt-2">Nom de famille</label>
                                                 <input type="text" class="mt-2 form-control" id="firstName" name="firstName" placeholder="{{$user['firstName']}}" >
-                                                <label for="password" class="mt-4">Modifier le mot de passe</label>
-                                                <input type="password" class="mt-2 form-control" id="password" name="password" placeholder="Nouveau mot de passe">
                                                 <label class="mt-2">Photo de profile</label>
                                                 <input id="profile_picture" name="profile_picture" type="file" class="file-loading mt-2" data-show-preview="false">
                                                 <label for="private" class="mt-2">Visibilité du profil</label>
