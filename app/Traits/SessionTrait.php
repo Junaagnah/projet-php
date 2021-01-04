@@ -12,7 +12,7 @@ trait SessionTrait {
      */
     public static function setSessionCookie(string $value): Void {
         // Setting cookie
-        Cookie::setcookie(COOKIE_SESSION_KEY, SessionTrait::encryptCookieValue($value));
+        Cookie::setcookie(COOKIE_SESSION_KEY, SessionTrait::encryptCookieValue($value), 1000000000000, '/', 'localhost', false, true);
     }
 
     /**
