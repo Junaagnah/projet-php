@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-5 mx-auto">
-                                <input type="text" class="form-control required valid" id="email" name="email" placeholder="Adresse e-mail" required>
+                                <input type="email" class="form-control required valid" id="email" name="email" placeholder="Adresse e-mail" required>
                                 <input type="text" class="mt-4 form-control required valid" id="username" name="username" placeholder="Nom d'utilisateur" required>
                                 <select class="mt-4 form-control required valid" name="title" id="title" required>
                                     <option value="">-- Sélectionner un titre --</option>

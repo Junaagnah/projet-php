@@ -53,7 +53,7 @@
                                                 <div class="row">
                                                     <div class="col-5 mx-auto">
                                                         <label for="email" class="mt-2">Courriel</label>
-                                                        <input type="text" class=" mt-2 form-control " id="email" name="email" placeholder="{{$user['email']}}">
+                                                        <input type="email" class=" mt-2 form-control " id="email" name="email" placeholder="{{$user['email']}}">
                                                         <label for="username" class="mt-2">Pseudo</label>
                                                         <input type="text" class="mt-2 form-control" id="username" name="username" placeholder="{{$user['username']}}">
                                                         <label for="title" class="mt-2">Titre</label>
