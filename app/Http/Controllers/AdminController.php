@@ -27,7 +27,8 @@ class AdminController extends BaseController
     {
         $input = $request->all();
 
-        if ($input['role'] === "all" & $input['search'] != "") {
+        if ($input['role'] === "all" & $input['search'] != "")
+        {
             $users = DB::table('users')->where('email', $input['search'])->orwhere('username', $input['search'])->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
