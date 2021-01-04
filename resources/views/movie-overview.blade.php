@@ -125,7 +125,7 @@
             <h2>Derniers commentaires</h2>
     </div>
     @if (!empty($reviews))
-    <div class="reviews-container d-flex flex-column justify-content-center align-items-center m-auto pb-lg-5">
+    <div class="reviews-container d-flex flex-column justify-content-center align-items-center m-auto">
         @foreach ($reviews as $review)
         <div class='review d-flex justify-content-center mb-3'>
             <div class="user-name p-3 center">
