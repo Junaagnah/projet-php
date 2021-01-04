@@ -87,6 +87,14 @@ class UserController extends BaseController {
             }
         }
 
+        try {
+            $this->validate($request,[
+                'username' => 'alpha_num',
+            ]);
+        } catch (ValidationException $errors) {
+            return View('errors', ['error' => "Le champ 'Pseudo' ne doit pas contenir de caractères spéciaux"]);
+        }
+
         if (isset($input['profile_picture']) && $input['profile_picture'] !== NULL)
         {
             //Delete and set image name
