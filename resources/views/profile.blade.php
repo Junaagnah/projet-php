@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="my-0">
-        <div class="container">
+        <div class="w-100">
             <div class="heading-block topmargin-lg center">
                 <h2>{{ $user['username'] }}</h2>
                 @if(!empty($user['profilePicturePath']))
                     <img src="/images/profile_picture/{{$user['profilePicturePath']}}" alt="Profile picture" class="img-circle profile-picture mt-3">
                 @else
-                    <img src="/images/{{ DEFAULT_PROFILE_PICTURE }}" alt="Profile picture" class="img-circle profile-picture mt-3">
+                    <img src="/images/profile_picture/{{ DEFAULT_PROFILE_PICTURE }}" alt="Profile picture" class="img-circle profile-picture mt-3">
                 @endif
             </div>
 
@@ -86,8 +86,18 @@
                 <h2>Derniers commentaires</h2>
             </div>
             <div class="center">
-                @if(empty($lastComments))
+                @if(empty($reviews))
                     <h5>Pas de commentaires à afficher</h5>
+                @else
+                    <div class="reviews-container d-flex flex-column justify-content-center align-items-center m-auto pb-lg-5">
+                        @foreach($reviews as $review)
+                            <div class='review d-flex justify-content-center mb-3'>
+                                <div class="user-name p-3"><a href="/movieOverview?movieId={{ $review['FK_movieId'] }}"><img class="profile-review-picture" src="https://image.tmdb.org/t/p/original{{ $review['poster_path'] }}" alt="poster"></a></div>
+                                <div class="user-review p-3 pb-5">{{ $review['review'] }} <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span></div>
+                                <div class="user-note p-3 d-flex justify-content-center align-items-center">{{ $review['note'] }}</div>
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>

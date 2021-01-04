@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Traits\MoviesTrait;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,10 @@ class ReviewController extends BaseController
     public function addReview(Request $request)
     {
         // Validate the request
-        $this->validateReview($request);
+        $error = $this->validateReview($request);
+
+        if (!empty($error))
+            return $error;
 
         // Get all inputs
         $input = $request->all();
@@ -44,7 +48,10 @@ class ReviewController extends BaseController
     public function editReview(Request $request)
     {
         // Validate the request
-        $this->validateReview($request);
+        $error = $this->validateReview($request);
+
+        if (!empty($error))
+            return $error;
 
         // Get all inputs
         $input = $request->all();
@@ -98,7 +105,7 @@ class ReviewController extends BaseController
                 'note' => ['required', 'integer']
             ]);
         } catch (ValidationException $errors) {
-            return view('errors', ['error' => $errors->getResponse()->getContent()]);
+            return View('errors', ['error' => $errors->getResponse()->getContent()]);
         }
     }
 }

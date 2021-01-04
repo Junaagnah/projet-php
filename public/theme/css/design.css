@@ -250,6 +250,11 @@ a * {
     max-width: 150px;
 }
 
+.profile-review-picture {
+    max-height: 150px;
+    max-width: 150px;
+}
+
 .user-info {
     margin-bottom: .5rem;
     font-family: inherit;
