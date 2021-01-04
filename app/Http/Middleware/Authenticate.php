@@ -35,21 +35,23 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next) {
         // Checking if user is connected
+        var_dump(COOKIE_SESSION_KEY);
         $encryptedUsername = $request->cookie(COOKIE_SESSION_KEY);
 
         if (empty($encryptedUsername))
             return $next($request);
 
         $username = SessionTrait::getSessionCookieValue($encryptedUsername);
-
+        var_dump($encryptedUsername);
         if (!empty($username)) {
+            var_dump($username);
             $user = User::getOneUserByUsername($username);
             if (!empty($user)) {
                 // We check if the user is banned
                 if (!$user['isBanned']) {
                     // If the user exists, we set his account in the session global variable and reset a new cookie
                     $_SESSION['user'] = $user;
-                    SessionTrait::setSessionCookie($username);
+                    // SessionTrait::setSessionCookie($username);
                 }
                 else {
                     // If the user is banned, we disconnect him and redirect him to the errors page
@@ -58,7 +60,7 @@ class Authenticate
                 }
             }
             else {
-                dd('ISSOU');
+                dd($encryptedUsername);
                 SessionTrait::unsetSessionCookie();
             }
         }
