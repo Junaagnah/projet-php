@@ -23,7 +23,13 @@
                     <p class="text-center user-info h4 mt-3">Rôle : {{$user['userRole']}}</p>
                 @elseif($user['private'] == true || $user['isBanned'] == true)
                     <p class="text-center user-info h4 mt-3">Pseudo : {{$user['username']}}</p>
-                    <p class="text-center user-info h4 mt-3">Rôle : {{$user['userRole']}}</p>
+                    <p class="text-center user-info h4 mt-3">Rôle :
+                    @if ($user['userRole'] === 'ROLE_USER')
+                    Utilisateur
+                    @else
+                    Administrateur
+                    @endif
+                    </p>
                 @endif
             </div>
 
