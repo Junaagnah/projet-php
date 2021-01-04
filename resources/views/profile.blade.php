@@ -70,7 +70,7 @@
                                                         <input type="text" class="mt-2 form-control" id="lastName" name="lastName" placeholder="{{$user['lastName']}}" >
                                                         <label for="firstName" class="mt-2">Nom de famille</label>
                                                         <input type="text" class="mt-2 form-control" id="firstName" name="firstName" placeholder="{{$user['firstName']}}" >
-                                                        <label class="mt-2">Photo de profile</label>
+                                                        <label class="mt-2">Photo de profil</label>
                                                         <input id="profile_picture" name="profile_picture" type="file" class="file-loading mt-2" data-show-preview="false">
                                                         <label for="private" class="mt-2">Visibilité du profil</label>
                                                         <select class="mt-2 form-control" name="private" id="private">
