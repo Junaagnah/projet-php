@@ -44,13 +44,28 @@ class UserController extends BaseController {
 
         $user = User::where('username', $username)->first();
 
-        if ($_SESSION['user']['userRole'] !== 'ROLE_ADMIN')
-        {
-            if (($user['password'] !== hash('sha256', $input['password_confirmation']) && $user['username'] !== $_SESSION['user']['username']))
-            {
-                return View('errors', ['error' => "Vous devez être l' utilisateur propriétaire du profil ou un utilisateur Admin pour pouvoir le modifier"]);
-            }
+        switch ($_SESSION['user']['userRole']){
+            case 'ROLE_ADMIN':
+                if ($_SESSION['user']['password'] !== hash('sha256', $input['password_confirmation']))
+                {
+                    return View('errors', ['error' => "Votre mot de passe est incorrect"]);
+                }
+            break;
+
+            case 'ROLE_USER':
+                if ($user['password'] !== hash('sha256', $input['password_confirmation']))
+                {
+                    return View('errors', ['error' => "Votre mot de passe est incorrect"]);
+                }
+                if ($user['username'] !== $_SESSION['user']['username'])
+                {
+                    return View('errors', ['error' => "Vous devez être le propriétaire du profil ou un utilisateur Admin pour pouvoir modifier le profil"]);
+                }
+            break;
         }
+
+
+
 
 
         foreach ($input as $key => $value) {
@@ -95,7 +110,7 @@ class UserController extends BaseController {
             'image/png',
             'image/svg'
         ];
-        
+
         //Check file type with array
         if (in_array($file->getMimeType(), $authorizedMimeType)){
 
