@@ -50,7 +50,7 @@
                     <label for="review">Editer votre revue</label>
                     <div class="row">
                         <div class="col-10">
-                        <textarea name="review"id="review"cols="100"rows="6"placeholder="Ajouter un commentaire">{{trim($reviews[array_search($_SESSION['user']['id'],array_column($reviews,'FK_userId'))]['review'])}}</textarea>
+                        <textarea maxlength="5000" name="review"id="review"cols="100"rows="6"placeholder="Ajouter un commentaire">{{trim($reviews[array_search($_SESSION['user']['id'],array_column($reviews,'FK_userId'))]['review'])}}</textarea>
                         </div>
                         <div class="col-2 d-flex justify-content-center align-items-center flex-column">
                             <label class="text-center" for="number">Note / 10 <span>(chiffre rond uniquement)</span></label>
@@ -96,7 +96,7 @@
                 <label for="review">Ajouter une revue</label>
                 <div class="row">
                     <div class="col-10">
-                    <textarea name="review"id="review"cols="100"rows="6"placeholder="Ajouter un commentaire"></textarea>
+                    <textarea maxlength="5000" name="review"id="review"cols="100"rows="6"placeholder="Ajouter un commentaire"></textarea>
                     </div>
                     <div class="col-2 d-flex justify-content-center align-items-center flex-column">
                         <label for="number">Note / 10 <span>(chiffre rond uniquement)</span></label>

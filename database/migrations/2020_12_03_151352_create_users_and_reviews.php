@@ -28,7 +28,7 @@ class CreateUsersAndReviews extends Migration
             $table->timestamps();
             $table->integer('FK_userId')->unsigned();
             $table->string('FK_movieId');
-            $table->string('review');
+            $table->string('review', 5000);
             $table->integer('note');
         });
 
