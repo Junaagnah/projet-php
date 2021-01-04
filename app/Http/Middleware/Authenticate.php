@@ -58,6 +58,7 @@ class Authenticate
                 }
             }
             else {
+                dd('ISSOU');
                 SessionTrait::unsetSessionCookie();
             }
         }

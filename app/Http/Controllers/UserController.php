@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\SessionTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;

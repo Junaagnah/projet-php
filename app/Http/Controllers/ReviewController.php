@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Traits\MoviesTrait;
-use App\Traits\SessionTrait;
 use Illuminate\Support\Facades\DB;
 use App\Review;
 
@@ -13,7 +12,6 @@ class ReviewController extends BaseController
 {
 
     use MoviesTrait;
-    use SessionTrait;
 
     public function addReview(Request $request)
     {
