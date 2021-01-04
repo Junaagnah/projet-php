@@ -114,7 +114,7 @@ class UserController extends BaseController {
         }
 
         $user->update($input);
-        
+
         if (isset($input['username'])) {
             $username = $input['username'];
             SessionTrait::unsetSessionCookie();
@@ -134,7 +134,6 @@ class UserController extends BaseController {
         $authorizedMimeType = [
             'image/jpg',
             'image/jpeg',
-            'image/gif',
             'image/png',
             'image/svg'
         ];
