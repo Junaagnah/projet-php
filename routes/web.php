@@ -83,5 +83,8 @@ Route::group(['middleware' => 'authenticated'], function () {
 
         //Demote user to classic user
         Route::post('/demote-user', 'AdminController@demoteUser');
+
+        //Remove review from another user
+        Route::post('/adminDeleteReview', 'AdminController@adminDeleteReview');
     });
 });
