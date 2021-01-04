@@ -29,7 +29,7 @@ trait SessionTrait {
     public static function unsetSessionCookie(): Void {
         // When the user disconnects, we set an empty cookie and unset the user variable in $_SESSION
         unset($_SESSION['user']);
-        Cookie::setcookie(COOKIE_SESSION_KEY, '', time() - 3600);
+        Cookie::setcookie(COOKIE_SESSION_KEY, '', time() - 3600, '/', 'localhost', false, true);
     }
 
     /**
