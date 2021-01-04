@@ -137,8 +137,24 @@
                     <img class="profile-picture img-circle" src="/images/profile_picture/{{ DEFAULT_PROFILE_PICTURE }}" alt="profile picture">
                 @endif
             </div>
-            <div class="user-review p-3 pb-5">{{ $review['review'] }} <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span></div>
+            <div class="user-review p-3 pb-5">
+                {{ $review['review'] }}
+                <span class="updated-at pb-1 pr-2 font-italic">Mis à jour le : {{date_format(date_create($review['updated_at']), 'd-m-Y à H:i:s')}}</span>
+            </div>
             <div class="user-note p-3  d-flex justify-content-center align-items-center">{{ $review['note'] }}</div>
+            @if (!empty($_SESSION['user']) && $_SESSION['user']['userRole'] === ROLE_ADMIN)
+            <form
+                action="/adminDeleteReview"
+                method="post"
+                class='d-flex justify-content-center align-items-center pb-3'
+            >
+                <input type="hidden" value="{{ $movie['id'] }}" name="FK_movieId"/>
+                <input type="hidden" value="{{ $review['id'] }}" name="id"/>
+                <button
+                    class="btn btn-danger admin-delete-review-button"
+                >Supprimer</button>
+            </form>
+            @endif
         </div>
         @endforeach
     </div>

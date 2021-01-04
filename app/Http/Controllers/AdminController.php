@@ -102,4 +102,14 @@ class AdminController extends BaseController
         $users = DB::table('users')->get();
         return view('admin', ["users" => $users]);
     }
+
+    /**
+     * @param Request $request
+     */
+    public function adminDeleteReview(Request $request) {
+        $input = $request->all();
+        // Delete the review
+        DB::table('reviews')->where('id', $input['id'])->delete();
+        return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
+    }
 }
