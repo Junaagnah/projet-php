@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\Traits\MoviesTrait;
-use Illuminate\Support\Facades\DB;
-use App\Models\Review;
+use App\Traits\ReviewTrait;
 
 class ReviewController extends BaseController
 {
@@ -20,31 +17,12 @@ class ReviewController extends BaseController
      */
     public function addReview(Request $request)
     {
-        // Validate the request
-        $error = $this->validateReview($request);
-
-        if (!empty($error))
-            return $error;
-
-        // Get all inputs
-        $input = $request->all();
-
-        // Retrieve a comment of this user on this movie
-        $userCommentOnThisMovie = DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get();
-
-        // Get the movie that the user try to rate, it will be used to redirect when the job is done
-        $currentMovie = MoviesTrait::getMovieById($input['FK_movieId']);
-
-        // If the user already added a comment on this movie return the error view
-        if (!empty($userCommentOnThisMovie[0])) {
-            return view('errors', ['error' => 'Vous ne pouvez pas poster plus d\'une revue par film, il faut mettre a jour votre ancienne revue.']);
+        // Add a review, if addReview return a result it's an error View
+        $errorView = ReviewTrait::addReview($request);
+        if (!empty($errorView)) {
+            return $errorView;
         }
-
-        // Save the review
-        $input['FK_userId'] = $_SESSION['user']['id'];
-        $review = New Review($input);
-        $review->save();
-
+        $input = $request->all();
         // Return the movie view
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
     }
@@ -55,29 +33,12 @@ class ReviewController extends BaseController
      */
     public function editReview(Request $request)
     {
-        // Validate the request
-        $error = $this->validateReview($request);
-
-        if (!empty($error))
-            return $error;
-
-        // Get all inputs
-        $input = $request->all();
-
-        // Retrieve a comment of this user on this movie
-        $userCommentOnThisMovie = json_decode(DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get(), true);
-
-        // Get the movie that the user try to rate, it will be used to redirect when the job is done
-        $currentMovie = MoviesTrait::getMovieById($input['FK_movieId']);
-
-        // If the never added a comment on this movie return the movie view with an error
-        if (empty($userCommentOnThisMovie[0])) {
-            return view('errors', ['error' => 'Vous n\'avez pas poster de revue sur ce film, impossible de mettre à jour une revue inexistante.']);
+        // Edit a review, if editReview return a result it's an error View
+        $errorView = ReviewTrait::editReview($request);
+        if (!empty($errorView)) {
+            return $errorView;
         }
-
-        // Update the review
-        DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->update(['review' => $input['review'], 'note' => $input['note'], 'updated_at' => date('Y-m-d H:i:s')]);
-
+        $input = $request->all();
         // Return the movie view
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
     }
@@ -88,37 +49,13 @@ class ReviewController extends BaseController
      */
     public function deleteReview(Request $request)
     {
-        // Get all inputs
-        $input = $request->all();
-
-        // Retrieve a comment of this user on this movie
-        $userCommentOnThisMovie = json_decode(DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get(), true);
-
-        // If the never added a comment on this movie return the movie view with an error
-        if (empty($userCommentOnThisMovie[0])) {
-            return view('errors', ['error' => 'Vous n\'avez pas poster de revue sur ce film, impossible de supprimer une revue inexistante.']);
+        // Delete a review, if deleteReview return a result it's an error View
+        $errorView = ReviewTrait::deleteReview($request);
+        if (!empty($errorView)) {
+            return $errorView;
         }
-
-        // Update the review
-        DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->delete();
-
+        $input = $request->all();
         // Return the movie view
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
-    }
-
-    /**
-     * @param Request $request
-     * @return View
-     */
-    private function validateReview(Request $request) {
-        try {
-            $this->validate($request, [
-                'FK_movieId' => ['required'],
-                'review' => ['required'],
-                'note' => ['required', 'integer']
-            ]);
-        } catch (ValidationException $errors) {
-            return View('errors', ['error' => $errors->getResponse()->getContent()]);
-        }
     }
 }
