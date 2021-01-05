@@ -1,5 +1,21 @@
 # Movie Placeholder
 
+## Présentation
+
+Le site Movie Placeholder a pour but de pouvoir consulter différents films et d'y laisser des notes.
+
+Ce site permet aux utilisateurs de :
+- Consulter des films
+- Donner une note et un commentaire sur un film
+- Accéder aux profils des différents utilisateurs
+- Modifier les informations de son profil
+
+Les administrateurs peuvent :
+- Bénéficier des mêmes fonctionnalités que les utilisateurs
+- Bannir et dé-bannir un utilisateur
+- Supprimer un commentaire
+- Promouvoir un utilisateur au rang d'admin
+
 ## Installation
 
 **Cloner le projet**

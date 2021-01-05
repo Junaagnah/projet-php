@@ -22,6 +22,7 @@ trait UserTrait {
     {
         $user = User::getOneUserByUsername($username);
 
+        //Check if the user exist
         if (!empty($user)) {
             $reviews = UserTrait::getLastUserReviews($user['id']);
 
@@ -47,6 +48,7 @@ trait UserTrait {
 
         $user = User::where('username', $username)->first();
 
+        //Check if the user is connected and if he is an Admin or a User
         if (!empty($_SESSION['user']))
         {
             switch ($_SESSION['user']['userRole'])
@@ -73,6 +75,7 @@ trait UserTrait {
             return View('errors', ['error' => "Vous devez être connecté(e) pour pouvoir modifier un profil"]);
         }
 
+        //Remove all unused key
         foreach ($input as $key => $value) {
             if ($value === '')
             {
@@ -88,11 +91,12 @@ trait UserTrait {
             return View('errors', ['error' => "Le champ 'Pseudo' ne doit pas contenir de caractères spéciaux"]);
         }
 
+        //Check if the profile picture is set
         if (isset($input['profile_picture']) && $input['profile_picture'] !== NULL)
         {
             //Delete and set image name
             $input['profilePicturePath'] = UserTrait::processFile($request->file('profile_picture'), $user);
-            //Fix error Handling Todo: Improve
+            //Check error for profilePicturePath
             if (gettype($input['profilePicturePath']) !== 'string')
             {
                 return $input['profilePicturePath'];
@@ -106,6 +110,7 @@ trait UserTrait {
 
         $user->update($input);
 
+        //In case of username change recreate SessionCookie
         if (isset($input['username'])) {
             $username = $input['username'];
             SessionTrait::unsetSessionCookie();
@@ -129,7 +134,7 @@ trait UserTrait {
             'image/svg'
         ];
 
-        //Check file type with array
+        //Check file type with array of MimeType
         if (in_array($file->getMimeType(), $authorizedMimeType)) {
 
             //check if user already has a profile picture
@@ -139,6 +144,7 @@ trait UserTrait {
                 } catch (\Throwable $th) {
                 }
             }
+            //change the name of the file with uuid
             $image_name = Str:: uuid() . '.' . $file->getClientOriginalExtension();
             $file->move('images/profile_picture', $image_name);
 
