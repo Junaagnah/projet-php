@@ -19,8 +19,10 @@ trait AuthTrait {
         $input = $request->all();
         $baseController = new BaseController();
 
+        // Hash the password
         $password = hash('sha256', $input['password']);
 
+        // Validate the request object
         try {
             $baseController->validate($request, [
                 'username' => ['required', 'unique:users', 'alpha_num'],
@@ -34,9 +36,10 @@ trait AuthTrait {
             return View('errors', ['error' => $errors->getResponse()->getContent()]);
         }
 
-        //Define password as hashed password
+        // Define password as hashed password
         $input['password'] = $password;
 
+        // Create and save the user
         $user = New User($input);
 
         $user->save();

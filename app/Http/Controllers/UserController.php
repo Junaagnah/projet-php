@@ -22,7 +22,7 @@ class UserController extends BaseController {
      * @param string $username
      * @return View
      */
-    public function showUserProfile(Request $request, string $username): View
+    public function showUserProfile(Request $request, string $username)
     {
         return UserTrait::showUserProfile($username);
     }

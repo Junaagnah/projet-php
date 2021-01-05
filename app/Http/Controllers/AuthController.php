@@ -14,7 +14,7 @@ class AuthController extends BaseController
     /**
      * @return View
      */
-    public function login(): View
+    public function login()
     {
         return view('login');
     }
@@ -22,7 +22,7 @@ class AuthController extends BaseController
     /**
      * @return View
      */
-    public function register(): View
+    public function register()
     {
         return view('register');
     }
@@ -55,7 +55,7 @@ class AuthController extends BaseController
     /**
      * @return RedirectResponse
      */
-    public function disconnect(): RedirectResponse
+    public function disconnect()
     {
         SessionTrait::unsetSessionCookie();
         return redirect('/');
