@@ -15,12 +15,9 @@ use App\Models\User;
 
 class UserController extends BaseController {
 
-    use MoviesTrait;
-    use SessionTrait;
-
     /**
      * @param Request $request
-     * @param int $id
+     * @param string $username
      * @return View
      */
     public function showUserProfile(Request $request, string $username): View
@@ -33,7 +30,7 @@ class UserController extends BaseController {
             // Getting the movies images if there is movies
             if (!empty($reviews)) {
                 foreach($reviews as &$review) {
-                    $movie = $this->getMovieById($review['FK_movieId']);
+                    $movie = MoviesTrait::getMovieById($review['FK_movieId']);
                     $review['poster_path'] = $movie['movie']['poster_path'];
                 }
             }

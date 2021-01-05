@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Traits\MoviesTrait;
-use Illuminate\Support\Facades\DB;
-use App\Models\Review;
 
 class MovieController extends BaseController
 {
 
-    use MoviesTrait;
-
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function getOverview(Request $request)
     {
         $movieId = $request->input('movieId');
-        $result = $this->getMovieById($movieId);
-        return view('movie-overview', ['movie' => $result['movie'], 'reviews' => $result['reviews']]);
+        $result = MoviesTrait::getMovieById($movieId);
+        return View('movie-overview', ['movie' => $result['movie'], 'reviews' => $result['reviews']]);
     }
 }
