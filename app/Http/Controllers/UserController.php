@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\User;
+use App\Models\User;
 
 class UserController extends BaseController {
 
