@@ -53,30 +53,30 @@
                                                 <div class="row">
                                                     <div class="col-5 mx-auto">
                                                         <label for="email" class="mt-2">Courriel</label>
-                                                        <input maxlength="100" type="email" class=" mt-2 form-control " id="email" name="email" placeholder="{{$user['email']}}">
+                                                        <input maxlength="100" type="email" class=" mt-2 form-control " id="email" name="email" value="{{$user['email']}}">
                                                         <label for="username" class="mt-2">Pseudo</label>
-                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="username" name="username" placeholder="{{$user['username']}}">
+                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="username" name="username" value="{{$user['username']}}">
                                                         <label for="title" class="mt-2">Titre</label>
                                                         <select class="mt-2 form-control" name="title" id="title">
                                                             <option value="">-- Sélectionner un titre --</option>
-                                                            <option value="Monsieur">Monsieur</option>
-                                                            <option value="Madame">Madame</option>
-                                                            <option value="Neutre">Neutre</option>
-                                                            <option value="Docteur">Docteur</option>
-                                                            <option value="Professeur">Professeur</option>
-                                                            <option value="Maître">Maître</option>
+                                                            <option value="Monsieur" @if($user['title'] === "Monsieur") selected @endif >Monsieur</option>
+                                                            <option value="Madame" @if($user['title'] === "Madame") selected @endif>Madame</option>
+                                                            <option value="Neutre" @if($user['title'] === "Neutre") selected @endif>Neutre</option>
+                                                            <option value="Docteur" @if($user['title'] === "Docteur") selected @endif>Docteur</option>
+                                                            <option value="Professeur" @if($user['title'] === "Professeur") selected @endif>Professeur</option>
+                                                            <option value="Maître" @if($user['title'] === "Maître") selected @endif>Maître</option>
                                                         </select>
                                                         <label for="lastName" class="mt-2">Prénom</label>
-                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="lastName" name="lastName" placeholder="{{$user['lastName']}}" >
+                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="lastName" name="lastName" value="{{$user['lastName']}}" >
                                                         <label for="firstName" class="mt-2">Nom de famille</label>
-                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="firstName" name="firstName" placeholder="{{$user['firstName']}}" >
+                                                        <input maxlength="30" type="text" class="mt-2 form-control" id="firstName" name="firstName" value="{{$user['firstName']}}" >
                                                         <label class="mt-2">Photo de profil</label>
                                                         <input id="profile_picture" name="profile_picture" type="file" class="file-loading mt-2" data-show-preview="false">
                                                         <label for="private" class="mt-2">Visibilité du profil</label>
                                                         <select class="mt-2 form-control" name="private" id="private">
                                                             <option value="">-- Sélectionner la visibilité --</option>
-                                                            <option value="0">Publique</option>
-                                                            <option value="1">Privé</option>
+                                                            <option @if($user['private'] === 0) selected="selected" @endif value="0">Publique</option>
+                                                            <option @if($user['private'] === 1) selected="selected" @endif value="1">Privé</option>
                                                         </select>
                                                         <label for="password_confirmation" class="mt-3">Vérification du mot de passe</label>
                                                         <input maxlength="32" type="password" class="mt-2 form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmation du mot de passe" required>
