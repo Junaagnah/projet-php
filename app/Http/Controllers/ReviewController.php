@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Traits\MoviesTrait;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +14,10 @@ use App\Models\Review;
 class ReviewController extends BaseController
 {
 
-    use MoviesTrait;
-
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function addReview(Request $request)
     {
         // Validate the request
@@ -29,7 +33,7 @@ class ReviewController extends BaseController
         $userCommentOnThisMovie = DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get();
 
         // Get the movie that the user try to rate, it will be used to redirect when the job is done
-        $currentMovie = $this->getMovieById($input['FK_movieId']);
+        $currentMovie = MoviesTrait::getMovieById($input['FK_movieId']);
 
         // If the user already added a comment on this movie return the error view
         if (!empty($userCommentOnThisMovie[0])) {
@@ -45,6 +49,10 @@ class ReviewController extends BaseController
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function editReview(Request $request)
     {
         // Validate the request
@@ -60,7 +68,7 @@ class ReviewController extends BaseController
         $userCommentOnThisMovie = json_decode(DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get(), true);
 
         // Get the movie that the user try to rate, it will be used to redirect when the job is done
-        $currentMovie = $this->getMovieById($input['FK_movieId']);
+        $currentMovie = MoviesTrait::getMovieById($input['FK_movieId']);
 
         // If the never added a comment on this movie return the movie view with an error
         if (empty($userCommentOnThisMovie[0])) {
@@ -74,6 +82,10 @@ class ReviewController extends BaseController
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function deleteReview(Request $request)
     {
         // Get all inputs
@@ -81,9 +93,6 @@ class ReviewController extends BaseController
 
         // Retrieve a comment of this user on this movie
         $userCommentOnThisMovie = json_decode(DB::table('reviews')->where('FK_movieID', $input['FK_movieId'])->where('FK_userId', $_SESSION['user']['id'])->get(), true);
-
-        // Get the movie from where the user want to remove hisq review, it will be used to redirect when the job is done
-        $currentMovie = $this->getMovieById($input['FK_movieId']);
 
         // If the never added a comment on this movie return the movie view with an error
         if (empty($userCommentOnThisMovie[0])) {
@@ -97,6 +106,10 @@ class ReviewController extends BaseController
         return redirect('/movieOverview?movieId=' . $input['FK_movieId']);
     }
 
+    /**
+     * @param Request $request
+     * @return View
+     */
     private function validateReview(Request $request) {
         try {
             $this->validate($request, [

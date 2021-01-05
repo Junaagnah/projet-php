@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 trait AdminTrait {
 
     /**
-     * @param Request $request
+     * @param Request|null $request
      * @return Collection<User>
      */
     public static function searchUser(Request $request = NULL) : Collection
@@ -22,16 +22,16 @@ trait AdminTrait {
             {
                 $users = DB::table('users')->where('email', 'like', '%'.$input['search'].'%')->orwhere('username', 'like','%'.$input['search'].'%')->where('username','!=', $_SESSION['user']['username'])->get();
             }
-    
+
             if ($input['search'] === "" & $input['role'] != "all")
             {
                 $users = DB::table('users')->where('userRole', $input['role'])->where('username','!=', $_SESSION['user']['username'])->get();
             }
-    
+
             if ($input['search'] !== "" & $input['role'] != "all"){
                 $users = DB::table('users')->where('email', 'like', '%'.$input['search'].'%')->orWhere('username', 'like', '%'.$input['search'].'%')->where('userRole', $input['role'])->where('username','!=', $_SESSION['user']['username'])->get();
             }
-    
+
             if ($input['role'] === "all" & $input['search'] === "") {
                 $users = DB::table('users')->where('username','!=', $_SESSION['user']['username'])->get();
             }
@@ -88,7 +88,7 @@ trait AdminTrait {
     }
 
     /**
-     * @param Request $request3
+     * @param Request $request
      * @return void
      */
     public static function adminDeleteReview(Request $request): void {

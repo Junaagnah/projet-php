@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use \App\Traits\MoviesTrait;
+use App\Traits\MoviesTrait;
 
 class IndexController extends BaseController
 {
-    use MoviesTrait;
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function default(Request $request)
     {
         $pageNumber = intval($request->input('pageNumber'));
@@ -17,13 +22,17 @@ class IndexController extends BaseController
             $pageNumber = 1;
             return redirect('/?pageNumber='.$pageNumber);
         }
-        $results = $this->getNowPlayingMovies($pageNumber);
+        $results = MoviesTrait::getNowPlayingMovies($pageNumber);
         if (intval($results['total_pages']) < $pageNumber) {
             return redirect('/?pageNumber='.$results['total_pages']);
         }
-        return view('index', ['movies' => $results, 'pageNumber' => $pageNumber, 'stringToSearch' => null]);
+        return View('index', ['movies' => $results, 'pageNumber' => $pageNumber, 'stringToSearch' => null]);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function search(Request $request) {
         $stringToSearch = $request->input('searchByTitle');
         $pageNumber = intval($request->input('pageNumber'));
@@ -34,12 +43,12 @@ class IndexController extends BaseController
             $pageNumber = 1;
             return redirect('/search?searchByTitle='.$stringToSearch.'&pageNumber='.$pageNumber);
         }
-        $results = $this->searchMovies($stringToSearch, $pageNumber);
+        $results = MoviesTrait::searchMovies($stringToSearch, $pageNumber);
         if (intval($results['total_pages']) === 0) {
             $results = null;
         } else if (intval($results['total_pages']) < $pageNumber) {
             return redirect('/search?searchByTitle='.$stringToSearch.'&pageNumber='.$results['total_pages']);
         }
-        return view('index', ['movies' => $results, 'pageNumber' => $pageNumber, 'stringToSearch' => $stringToSearch]);
+        return View('index', ['movies' => $results, 'pageNumber' => $pageNumber, 'stringToSearch' => $stringToSearch]);
     }
 }

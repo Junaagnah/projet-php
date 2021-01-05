@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\DB;
 
 trait MoviesTrait {
 
-    public function getNowPlayingMovies($pageNumber): array
+    public static function getNowPlayingMovies($pageNumber): array
     {
         $result = json_decode(file_get_contents('https://api.themoviedb.org/3/movie/now_playing?api_key='.MOVIE_DB_API_KEY.'&language=fr&page='.$pageNumber), true);
-        $result['results'] = $this->getGenresNamesAndClassNames($result['results']);
+        $result['results'] = MoviesTrait::getGenresNamesAndClassNames($result['results']);
         return $result;
     }
 
-    public function getMovieById($id): array
+    public static function getMovieById($id): array
     {
         $result = array();
         // Get the movie from the MovieDB API
@@ -46,10 +46,10 @@ trait MoviesTrait {
         return $result;
     }
 
-    public function searchMovies($stringToSearch, $pageNumber): array
+    public static function searchMovies($stringToSearch, $pageNumber): array
     {
         $result = json_decode(file_get_contents('https://api.themoviedb.org/3/search/movie?api_key='.MOVIE_DB_API_KEY.'&language=fr&query='.urlencode($stringToSearch).'&page='.$pageNumber), true);
-        $result['results'] = $this->getGenresNamesAndClassNames($result['results']);
+        $result['results'] = MoviesTrait::getGenresNamesAndClassNames($result['results']);
         return $result;
     }
 
@@ -57,7 +57,7 @@ trait MoviesTrait {
     /**
      * Get the genre that match the genres_ids in an multiple movie response from the MovieDB API. This only work with a result model for multiples movies
      */
-    private function getGenresNamesAndClassNames(array $moviesArray) {
+    private static function getGenresNamesAndClassNames(array $moviesArray) {
         $genresArray = json_decode(file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key='.MOVIE_DB_API_KEY.'&language=fr'), true)['genres'];
         foreach ($moviesArray as &$movie) {
             $movieParsedGenres = array();
