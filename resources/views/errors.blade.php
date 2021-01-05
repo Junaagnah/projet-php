@@ -28,6 +28,7 @@
             </div>
         @endif
     </div>
+    <button class="btn btn-primary btn-down d-block mx-auto" onclick="history.go(-1);">Retour</button>
 
 
 @endsection
