@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\User;
+use App\Models\User;
 
 class AuthController extends BaseController
 {
