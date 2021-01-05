@@ -32,7 +32,7 @@ class AuthenticatedGuard
      * @return mixed
      */
     public function handle(Request $request, Closure $next) {
-        // We check if the user is authenticated (if not, we redirect him to the landing page)
+        // Check if the user is authenticated, if not redirect on the landing page
         if (empty($_SESSION['user'])) {
             return redirect('/');
         }

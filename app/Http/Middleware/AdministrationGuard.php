@@ -32,7 +32,7 @@ class AdministrationGuard
      * @return mixed
      */
     public function handle(Request $request, Closure $next) {
-        // We check if the variable $_SESSION is full and if the user is admin
+        // Check if the variable $_SESSION is full and if the user is admin, if not redirect on the landing page
         if (empty($_SESSION['user']) || $_SESSION['user']['userRole'] !== ROLE_ADMIN) {
             return redirect('/');
         }
