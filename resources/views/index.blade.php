@@ -115,7 +115,7 @@
                         @else
                         <img
                             class="mh-100"
-                            src="https://image.tmdb.org/t/p/w300<?php echo $movie['poster_path'] ?>"
+                            src="https://image.tmdb.org/t/p/w300{{ $movie['poster_path'] }}?>"
                             alt=""
                         >
                         @endif

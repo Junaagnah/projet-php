@@ -13,7 +13,7 @@
                 alt=""
             >
             @else
-            <img src="https://image.tmdb.org/t/p/original<?php echo $movie['poster_path'] ?>" alt="" class="poster w-25 rounded">
+            <img src="https://image.tmdb.org/t/p/original{{ $movie['poster_path'] }}?>" alt="" class="poster w-25 rounded">
             @endif
             <div class="w-75 p-5 d-flex flex-column">
                 <h2 class="mb-3">{{$movie['title']}}</h2>
