@@ -2,8 +2,10 @@
 
 
 namespace App\Http\Controllers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -20,6 +22,14 @@ class AdminController extends BaseController
     }
 
     /**
+     * @return RedirectResponse
+     */
+    public function redirectToAdmin(): RedirectResponse
+    {
+        return redirect('/admin');
+    }
+
+    /**
      * @param Request $request
      * @return View
      */
@@ -29,7 +39,7 @@ class AdminController extends BaseController
 
         if ($input['role'] === "all" & $input['search'] != "")
         {
-            $users = DB::table('users')->where('email', $input['search'])->orwhere('username', $input['search'])->where('username','!=', $_SESSION['user']['username'])->get();
+            $users = DB::table('users')->where('email', 'like', '%'.$input['search'].'%')->orwhere('username', 'like','%'.$input['search'].'%')->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
         if ($input['search'] === "" & $input['role'] != "all")
@@ -38,7 +48,7 @@ class AdminController extends BaseController
         }
 
         if ($input['search'] !== "" & $input['role'] != "all"){
-            $users = DB::table('users')->where('email' , [$input['search']])->orWhere('username', $input['search'])->where('userRole', $input['role'])->where('username','!=', $_SESSION['user']['username'])->get();
+            $users = DB::table('users')->where('email', 'like', '%'.$input['search'].'%')->orWhere('username', 'like', '%'.$input['search'].'%')->where('userRole', $input['role'])->where('username','!=', $_SESSION['user']['username'])->get();
         }
 
         if ($input['role'] === "all" & $input['search'] === "") {

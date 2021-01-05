@@ -66,6 +66,9 @@ Route::group(['middleware' => 'authenticated'], function () {
         // Admin Page
         Route::get('/admin', 'AdminController@show');
 
+        // If user tries to access to route post search user, we redirect him on admin page
+        Route::get('/search-user', 'AdminController@redirectToAdmin');
+
         // Search user form
         Route::post('/search-user', 'AdminController@searchUser');
 
