@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Traits\MoviesTrait;
 use Illuminate\Support\Facades\DB;
-use App\Review;
+use App\Models\Review;
 
 class ReviewController extends BaseController
 {

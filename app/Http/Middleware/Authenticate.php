@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Traits\SessionTrait;
-use App\User;
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Laravel\Lumen\Http\Request;
