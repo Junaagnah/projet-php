@@ -25,6 +25,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
+// Setting app locale
+$app->setLocale(env('APP_LOCALE', 'fr'));
+
 $app->withFacades();
 
 $app->withEloquent();
