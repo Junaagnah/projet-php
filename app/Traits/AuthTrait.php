@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Http\Controllers\AuthController;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -18,12 +17,12 @@ class AuthTrait {
      */
     public static function register(Request $request) {
         $input = $request->all();
-        $authController = new AuthController();
+        $baseController = new BaseController();
 
         $password = hash('sha256', $input['password']);
 
         try {
-            $authController->validate($request, [
+            $baseController->validate($request, [
                 'username' => ['required', 'unique:users', 'alpha_num'],
                 'firstName' => ['required'],
                 'lastName' => ['required'],
@@ -50,11 +49,11 @@ class AuthTrait {
     public static function login(Request $request) {
         // Hashing password
         $hashedPassword = hash('sha256', $request->get('password'));
-        $authController = new AuthController();
+        $baseController = new BaseController();
 
         // Checking if fields are correct
         try {
-            $authController->validate($request, [
+            $baseController->validate($request, [
                 'email' => ['required', 'email'],
                 'password' => ['required'],
             ]);
