@@ -9,7 +9,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
-class AuthTrait {
+trait AuthTrait {
 
     /**
      * @param Request $request
