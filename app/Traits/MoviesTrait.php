@@ -6,14 +6,22 @@ use Illuminate\Support\Facades\DB;
 
 trait MoviesTrait {
 
-    public static function getNowPlayingMovies($pageNumber): array
+    /**
+     * @param int $pageNumber
+     * @return Array
+     */
+    public static function getNowPlayingMovies(int $pageNumber)
     {
         $result = json_decode(file_get_contents('https://api.themoviedb.org/3/movie/now_playing?api_key='.MOVIE_DB_API_KEY.'&language=fr&page='.$pageNumber), true);
         $result['results'] = MoviesTrait::getGenresNamesAndClassNames($result['results']);
         return $result;
     }
 
-    public static function getMovieById($id): array
+    /**
+     * @param int $id
+     * @return Array
+     */
+    public static function getMovieById($id)
     {
         $result = array();
         // Get the movie from the MovieDB API
@@ -46,7 +54,12 @@ trait MoviesTrait {
         return $result;
     }
 
-    public static function searchMovies($stringToSearch, $pageNumber): array
+    /**
+     * @param string $stringToSearch
+     * @param int $pageNumber
+     * @return Array
+     */
+    public static function searchMovies(string $stringToSearch, int $pageNumber)
     {
         $result = json_decode(file_get_contents('https://api.themoviedb.org/3/search/movie?api_key='.MOVIE_DB_API_KEY.'&language=fr&query='.urlencode($stringToSearch).'&page='.$pageNumber), true);
         $result['results'] = MoviesTrait::getGenresNamesAndClassNames($result['results']);
@@ -56,8 +69,11 @@ trait MoviesTrait {
 
     /**
      * Get the genre that match the genres_ids in an multiple movie response from the MovieDB API. This only work with a result model for multiples movies
+     * @param Array $moviesArray
+     * @return Array
      */
-    private static function getGenresNamesAndClassNames(array $moviesArray) {
+    private static function getGenresNamesAndClassNames(Array $moviesArray)
+    {
         $genresArray = json_decode(file_get_contents('https://api.themoviedb.org/3/genre/movie/list?api_key='.MOVIE_DB_API_KEY.'&language=fr'), true)['genres'];
         foreach ($moviesArray as &$movie) {
             $movieParsedGenres = array();

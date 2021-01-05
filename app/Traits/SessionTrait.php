@@ -10,7 +10,8 @@ trait SessionTrait {
      * @param string $value
      * @return Void
      */
-    public static function setSessionCookie(string $value): Void {
+    public static function setSessionCookie(string $value)
+    {
         // Setting cookie
         Cookie::setcookie(COOKIE_SESSION_KEY, SessionTrait::encryptCookieValue($value), 1000000000000, '/', env('APP_HOST'), false, true);
     }
@@ -19,14 +20,16 @@ trait SessionTrait {
      * @param string $cookieValue
      * @return String
      */
-    public static function getSessionCookieValue(string $cookieValue): String {
+    public static function getSessionCookieValue(string $cookieValue)
+    {
         return SessionTrait::decryptCookieValue($cookieValue);
     }
 
     /**
      * @return Void
      */
-    public static function unsetSessionCookie(): Void {
+    public static function unsetSessionCookie()
+    {
         // When the user disconnects, we set an empty cookie and unset the user variable in $_SESSION
         unset($_SESSION['user']);
         Cookie::setcookie(COOKIE_SESSION_KEY, '', time() - 3600, '/', env('APP_HOST'), false, true);
@@ -36,7 +39,8 @@ trait SessionTrait {
      * @param string $value
      * @return String
      */
-    private static function encryptCookieValue(string $value): String {
+    private static function encryptCookieValue(string $value)
+    {
         // Generating Initialization Vector Size
         $iv_size = openssl_cipher_iv_length(COOKIE_CYPHER);
         try {
@@ -54,7 +58,8 @@ trait SessionTrait {
      * @param string $value
      * @return String
      */
-    private static function decryptCookieValue(string $value): String {
+    private static function decryptCookieValue(string $value)
+    {
         // Getting the encrypted value and iv
         $valueAndIv = explode('|', $value);
         $decryptedValue = '';

@@ -12,7 +12,7 @@ trait AdminTrait {
      * @param Request|null $request
      * @return Collection<User>
      */
-    public static function searchUser(Request $request = NULL) : Collection
+    public static function searchUser(Request $request = NULL)
     {
         // If the request is not NULL check the params and query users by using the params as filters
         if (!is_null($request)) {
@@ -47,7 +47,7 @@ trait AdminTrait {
      * @param Request $request
      * @return void
      */
-    public static function banUser(request $request): void
+    public static function banUser(request $request)
     {
         $input = $request->all();
         //Update isBanned properties to true
@@ -58,7 +58,7 @@ trait AdminTrait {
      * @param Request $request
      * @return void
      */
-    public static function unbanUser(request $request) : void
+    public static function unbanUser(request $request)
     {
         $input = $request->all();
         //Update isBanned properties to false
@@ -69,7 +69,7 @@ trait AdminTrait {
      * @param Request $request
      * @return void
      */
-    public static function promoteUserToAdmin(Request $request) : void
+    public static function promoteUserToAdmin(Request $request)
     {
         $input = $request->all();
         //Update user to role Admin
@@ -80,7 +80,7 @@ trait AdminTrait {
      * @param Request $request
      * @return void
      */
-    public static function demoteUser(Request $request) : void
+    public static function demoteUser(Request $request)
     {
         $input = $request->all();
         //Update user to role User
@@ -91,7 +91,8 @@ trait AdminTrait {
      * @param Request $request
      * @return void
      */
-    public static function adminDeleteReview(Request $request): void {
+    public static function adminDeleteReview(Request $request)
+    {
         $input = $request->all();
         // Delete the review
         DB::table('reviews')->where('id', $input['id'])->delete();

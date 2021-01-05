@@ -34,7 +34,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @return array
      */
-    public function getGuarded(): array
+    public function getGuarded()
     {
         return $this->guarded;
     }
@@ -42,7 +42,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @param array $guarded
      */
-    public function setGuarded(array $guarded): void
+    public function setGuarded(array $guarded)
     {
         $this->guarded = $guarded;
     }
@@ -50,7 +50,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @return bool
      */
-    public static function isUnguarded(): bool
+    public static function isUnguarded()
     {
         return self::$unguarded;
     }
@@ -58,7 +58,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @param bool $unguarded
      */
-    public static function setUnguarded(bool $unguarded): void
+    public static function setUnguarded(bool $unguarded)
     {
         self::$unguarded = $unguarded;
     }
@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @return array
      */
-    public static function getGuardableColumns(): array
+    public static function getGuardableColumns()
     {
         return self::$guardableColumns;
     }
@@ -74,7 +74,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * @param array $guardableColumns
      */
-    public static function setGuardableColumns(array $guardableColumns): void
+    public static function setGuardableColumns(array $guardableColumns)
     {
         self::$guardableColumns = $guardableColumns;
     }
@@ -83,7 +83,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param string $email
      * @return User|null
      */
-    public static function getOneUserByEmail(string $email) {
+    public static function getOneUserByEmail(string $email)
+    {
         $user = DB::table('users')->where('email', $email)->first();
 
         if (!empty($user))
@@ -96,7 +97,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param string $username
      * @return array | null
      */
-    public static function getOneUserByUsername(string $username) {
+    public static function getOneUserByUsername(string $username)
+    {
         $user = DB::table('users')->where('username', $username)->first();
 
         if (empty($user))
@@ -110,7 +112,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param array $options
      * @return bool
      */
-    public function update(array $attributes = [], array $options = []): bool
+    public function update(array $attributes = [], array $options = [])
     {
         return parent::update($attributes, $options);
     }

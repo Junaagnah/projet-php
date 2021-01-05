@@ -18,7 +18,8 @@ trait UserTrait {
      * @param string $username
      * @return View|RedirectResponse
      */
-    public static function showUserProfile(string $username): View {
+    public static function showUserProfile(string $username)
+    {
         $user = User::getOneUserByUsername($username);
 
         if (!empty($user)) {
@@ -39,7 +40,8 @@ trait UserTrait {
         }
     }
 
-    public static function editUserAction(Request $request, string $username) {
+    public static function editUserAction(Request $request, string $username)
+    {
         $input = $request->all();
         $baseController = new BaseController();
 
@@ -118,7 +120,8 @@ trait UserTrait {
      * @param User $user
      * @return View|string
      */
-    private static function processFile(UploadedFile $file, User $user) {
+    private static function processFile(UploadedFile $file, User $user)
+    {
         $authorizedMimeType = [
             'image/jpg',
             'image/jpeg',
@@ -149,7 +152,8 @@ trait UserTrait {
      * @param int $userId
      * @return Array
      */
-    private static function getLastUserReviews(int $userId) {
+    private static function getLastUserReviews(int $userId)
+    {
         $reviews = DB::table('reviews')->select('*')->where('FK_userId', $userId)->orderByDesc('updated_at')->get();
 
         return json_decode($reviews, true);

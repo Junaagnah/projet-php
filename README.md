@@ -1,4 +1,4 @@
-# The Copy
+# Movie Placeholder
 
 ## Installation
 
@@ -34,4 +34,4 @@ php artisan migrate
 Les branches doivent commencer par un des préfixes suivants :
 * feature/
 * fix/
-* refacto/
+* refactor/

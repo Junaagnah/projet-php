@@ -15,7 +15,7 @@ class AdminController extends BaseController
     /**
      * @return View
      */
-    public function show() : View
+    public function show()
     {
         $users = AdminTrait::searchUser(NULL);
         return view('admin', ["users" => $users]);
@@ -24,7 +24,7 @@ class AdminController extends BaseController
     /**
      * @return RedirectResponse
      */
-    public function redirectToAdmin(): RedirectResponse
+    public function redirectToAdmin()
     {
         return redirect('/admin');
     }
@@ -33,7 +33,7 @@ class AdminController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function searchUser(Request $request) : View
+    public function searchUser(Request $request)
     {
         $users = AdminTrait::searchUser($request);
         return view('admin', ["users" => $users]);
@@ -43,7 +43,7 @@ class AdminController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function banUser(request $request) : View
+    public function banUser(request $request)
     {
         // Ban the user
         AdminTrait::banUser($request);
@@ -56,7 +56,7 @@ class AdminController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function unbanUser(request $request) : View
+    public function unbanUser(request $request)
     {
         // Unban the user
         AdminTrait::unbanUser($request);
@@ -69,7 +69,7 @@ class AdminController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function promoteUserToAdmin(Request $request) : View
+    public function promoteUserToAdmin(Request $request)
     {
         // Promote the user
         AdminTrait::promoteUserToAdmin($request);
@@ -82,7 +82,7 @@ class AdminController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function demoteUser(Request $request) : View
+    public function demoteUser(Request $request)
     {
         // Demote the user
         AdminTrait::demoteUser($request);
@@ -95,7 +95,8 @@ class AdminController extends BaseController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function adminDeleteReview(Request $request) {
+    public function adminDeleteReview(Request $request)
+    {
         $input = $request->all();
         // Delete the review
         AdminTrait::adminDeleteReview($request);
